@@ -121,13 +121,13 @@
     <!-- KANAN -->
     <div class="right">
         <div class="form-box">
-            <form method="POST" action="#">
+            <form method="POST" action="{{ url('/login') }}">
                 @csrf
 
                 <h2>Login</h2>
 
                 <input type="text" name="username" placeholder="Masukkan Username">
-                <input type="email" name="email" placeholder="Masukkan Email">
+                <input type="text" name="email" placeholder="Masukkan Email">
                 <input type="password" name="password" placeholder="Masukkan Password">
 
                 <button type="submit">Masuk</button>
