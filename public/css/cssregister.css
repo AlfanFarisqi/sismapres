@@ -22,9 +22,24 @@ body {
     background: linear-gradient(135deg, #355872, #7AAACE);
     color: white;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     padding: 40px;
+    overflow-y: auto;
+}
+
+.left::-webkit-scrollbar {
+    width: 6px;
+}
+
+.left::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.left::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 .left h1 {
@@ -144,3 +159,75 @@ button:hover {
     color: #355872;
     user-select: none;
 }
+
+/* WORKFLOW STYLES */
+.workflow {
+    margin-top: 40px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.workflow h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #F7F8F0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.workflow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.workflow-list::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 25px;
+    bottom: 25px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 0;
+}
+
+.workflow-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+    transition: 0.3s;
+}
+
+.workflow-item:hover {
+    transform: translateX(10px);
+}
+
+.step-num {
+    width: 30px;
+    height: 30px;
+    background: #9CD5FF;
+    color: #355872;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(156, 213, 255, 0.5);
+}
+
+.workflow-item span {
+    color: #F7F8F0;
+    font-weight: 500;
+}
+
