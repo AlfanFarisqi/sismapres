@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Daftar</title>
     <link rel="stylesheet" href="{{ asset('css/cssregister.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -17,6 +18,36 @@
                 Daftarkan diri Anda untuk mengikuti seleksi Siswa Berprestasi.<br><br>
                 Isi data dengan benar dan pastikan email yang digunakan aktif untuk menerima informasi terbaru dari kami.
             </p>
+
+            <div class="workflow">
+                <h3><i class="fa-solid fa-route"></i> Alur Penggunaan</h3>
+                <div class="workflow-list">
+                    <div class="workflow-item">
+                        <div class="step-num">1</div>
+                        <span>Login</span>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="step-num">2</div>
+                        <span>Isi Data Diri</span>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="step-num">3</div>
+                        <span>Informasi Persyaratan Kriteria</span>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="step-num">4</div>
+                        <span>Alur Jadwal Seleksi</span>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="step-num">5</div>
+                        <span>Mengisi Data Sesuai Persyaratan Kriteria</span>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="step-num">6</div>
+                        <span>Pengumuman Hasil Seleksi</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
