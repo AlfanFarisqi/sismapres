@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -31,9 +33,11 @@
                 <span class="badge">3</span>
             </div>
             <div class="user-profile">
-                <span class="user-name">Admin</span>
-                <img src="https://ui-avatars.com/api/?name=Admin&background=355872&color=fff&rounded=true" alt="Admin"
-                    class="avatar">
+                <div class="d-flex flex-column align-items-end me-2">
+                    <span class="user-name fw-bold">{{ auth()->user()->name }}</span>
+                    <small class="text-muted" style="font-size: 10px;">{{ strtoupper(auth()->user()->role) }}</small>
+                </div>
+                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=355872&color=fff&rounded=true" alt="User" class="avatar">
             </div>
         </div>
     </header>
@@ -47,7 +51,7 @@
             </div>
 
             <ul class="menu">
-                <li class="{{ request()->is('admin/dashboard') ? 'active' : '' }}"><a href="/admin/dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li class="{{ request()->is('admin/dashboard') ? 'active' : '' }}"><a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
                 <li class="{{ request()->is('admin/mahasiswa*') ? 'active' : '' }}"><a href="{{ route('admin.mahasiswa.index') }}"><i class="fa-solid fa-graduation-cap"></i> Data Mahasiswa</a></li>
                 <li class="{{ request()->is('admin/kriteria*') ? 'active' : '' }}"><a href="{{ route('admin.kriteria.index') }}"><i class="fa-solid fa-list-check"></i> Data Kriteria</a></li>
                 <li class="{{ request()->is('admin/data-penilaian*') ? 'active' : '' }}"><a href="{{ route('admin.data-penilaian.input') }}"><i class="fa-solid fa-laptop"></i> Data Penilaian</a></li>
@@ -70,6 +74,8 @@
         </main>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
