@@ -7,31 +7,14 @@ use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswas = Mahasiswa::all();
-        return view('admin.mahasiswa.index', compact('mahasiswas'));
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'nama' => 'required|string|max:255',
-            'npm' => 'required|string|unique:mahasiswas,npm',
-            'tingkat' => 'required|integer',
-            'email' => 'nullable|email',
-            'no_hp' => 'nullable|string',
-            'alamat' => 'nullable|string',
-        ]);
-
-        Mahasiswa::create($validated);
-        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil ditambahkan.');
-    }
-
-    public function show(Mahasiswa $mahasiswa)
-    {
-        return view('admin.mahasiswa.show', compact('mahasiswa'));
+        $search = $request->search;
+        $mahasiswas = Mahasiswa::when($search, function ($query) use ($search) {
+            $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('npm', 'like', '%' . $search . '%');
+        })->get();
+        return view('admin.mahasiswa.index', compact('mahasiswas', 'search'));
     }
 
     public function edit(Mahasiswa $mahasiswa)

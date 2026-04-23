@@ -35,7 +35,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kriteria/{kriteria}/edit', [KriteriaController::class, 'edit'])->name('kriteria.edit');
         Route::put('/kriteria/{kriteria}', [KriteriaController::class, 'update'])->name('kriteria.update');
         Route::delete('/kriteria/{kriteria}', [KriteriaController::class, 'destroy'])->name('kriteria.destroy');
-        Route::get('/data-penilaian', [AdminController::class, 'dataPenilaian'])->name('data-penilaian.input');
+        Route::get('/data-penilaian', [App\Http\Controllers\PenilaianController::class, 'index'])->name('data-penilaian.input');
+        Route::post('/data-penilaian', [App\Http\Controllers\PenilaianController::class, 'store'])->name('data-penilaian.store');
         Route::get('/upload-berkas', [AdminController::class, 'uploadBerkas'])->name('upload-berkas.index');
         Route::get('/hasil-seleksi', [AdminController::class, 'hasilSeleksi'])->name('hasil-seleksi.index');
         Route::post('/hasil-seleksi/calculate', [HasilController::class, 'calculate'])->name('hasil-seleksi.calculate');

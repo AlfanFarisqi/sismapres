@@ -30,10 +30,10 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('sidebarData'));
     }
 
-
-    public function dataPenilaian()
+    public function mahasiswa()
     {
-        return view('admin.data-penilaian.input');
+        $mahasiswas = Mahasiswa::all();
+        return view('admin.mahasiswa.index', compact('mahasiswas'));
     }
 
     public function uploadBerkas()

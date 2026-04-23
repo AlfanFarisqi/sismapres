@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Data Mahasiswa')
+
 @section('content')
 
 <h2 class="page-title"><i class="fa-solid fa-graduation-cap"></i> Data Mahasiswa</h2>
@@ -15,10 +17,12 @@
     <div class="filter-section d-flex justify-content-between align-items-center">
         <div class="search-box-wrapper">
             <label for="search-nama">Nama Mahasiswa</label>
-            <div class="search-box">
-                <input type="text" id="search-nama" class="form-control" placeholder="Cari mahasiswa...">
-                <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
-            </div>
+            <form action="GET" method="">   
+                <div class="search-box">
+                    <input type="text" id="search-nama" name="search" class="form-control" placeholder="Cari mahasiswa...">
+                    <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+                </div>
+            </form>
         </div>
         {{-- <a href="#" class="btn btn-success mt-4"><i class="fa-solid fa-plus"></i> Tambah Mahasiswa</a> --}}
     </div>
