@@ -22,40 +22,44 @@
                     <tbody>
                         <tr>
                             <th style="width: 30%;" class="fw-bold">Nama</th>
-                            <td>Alfan</td>
+                            <td>{{ $mahasiswa->nama }}</td>
                         </tr>
                         <tr>
                             <th class="fw-bold">NPM</th>
-                            <td>2313020192</td>
+                            <td>{{ $mahasiswa->npm }}</td>
                         </tr>
                         <tr>
                             <th class="fw-bold">Tingkat</th>
-                            <td>3</td>
+                            <td>{{ $mahasiswa->tingkat }}</td>
                         </tr>
                         <tr>
                             <th class="fw-bold">Email</th>
-                            <td>asdas@gmail.com</td>
+                            <td>{{ $mahasiswa->email }}</td>
                         </tr>
                         <tr>
                             <th class="fw-bold">Telephone</th>
-                            <td>0882222</td>
+                            <td>{{ $mahasiswa->no_hp }}</td>
                         </tr>
                         <tr>
                             <th class="fw-bold">Alamat</th>
-                            <td>Jl. Contoh Alamat Mahasiswa No. 12</td>
+                            <td>{{ $mahasiswa->alamat }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="d-flex gap-2">
-                <a href="{{ route('admin.mahasiswa.edit') }}" class="btn text-white rounded-3" style="background-color:#f0c419;">
+                <a href="{{ route('admin.mahasiswa.edit', $mahasiswa->id) }}" class="btn text-white rounded-3" style="background-color:#f0c419;">
                     <i class="fas fa-pen me-2"></i>Edit
                 </a>
 
-                <button class="btn btn-danger rounded-3" onclick="confirm('Yakin ingin menghapus data ini?')">
-                    <i class="fas fa-trash me-2"></i>Hapus
-                </button>
+                <form action="{{ route('admin.mahasiswa.destroy', $mahasiswa->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger rounded-3">
+                        <i class="fas fa-trash me-2"></i>Hapus
+                    </button>
+                </form>
             </div>
         </div>
     </div>

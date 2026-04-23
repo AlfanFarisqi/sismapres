@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('nama');
             $table->string('npm')->unique();
             $table->integer('tingkat');
+            $table->string('email')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->text('alamat')->nullable();
             $table->timestamps();
         });
     }

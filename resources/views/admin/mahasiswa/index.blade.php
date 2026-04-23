@@ -4,13 +4,23 @@
 
 <h2 class="page-title"><i class="fa-solid fa-graduation-cap"></i> Data Mahasiswa</h2>
 
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="card-container">
-    <div class="filter-section">
-        <label for="search-nama">Nama Mahasiswa</label>
-        <div class="search-box">
-            <input type="text" id="search-nama" class="form-control" placeholder="Cari mahasiswa...">
-            <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+    <div class="filter-section d-flex justify-content-between align-items-center">
+        <div class="search-box-wrapper">
+            <label for="search-nama">Nama Mahasiswa</label>
+            <div class="search-box">
+                <input type="text" id="search-nama" class="form-control" placeholder="Cari mahasiswa...">
+                <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+            </div>
         </div>
+        {{-- <a href="#" class="btn btn-success mt-4"><i class="fa-solid fa-plus"></i> Tambah Mahasiswa</a> --}}
     </div>
 
     <div class="table-responsive">
@@ -26,19 +36,27 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse($mahasiswas as $m)
                 <tr>
-                    <td>Alfan</td>
-                    <td>2313020192</td>
-                    <td>3</td>
-                    <td>asdas@gmail.com</td>
-                    <td>0882222</td>
+                    <td>{{ $m->nama }}</td>
+                    <td>{{ $m->npm }}</td>
+                    <td>{{ $m->tingkat }}</td>
+                    <td>{{ $m->email }}</td>
+                    <td>{{ $m->no_hp }}</td>
                     <td class="action-buttons">
-                        <button class="btn btn-sm btn-info" title="Lihat"><i class="fa-solid fa-eye"></i></button>
-                        <button class="btn btn-sm btn-warning" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-sm btn-danger" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                        <a href="{{ route('admin.mahasiswa.edit', $m->id) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                        <form action="{{ route('admin.mahasiswa.destroy', $m->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                        </form>
                     </td>
                 </tr>
-                <!-- More rows can be added here -->
+                @empty
+                <tr>
+                    <td colspan="6" class="text-center">Tidak ada data mahasiswa.</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

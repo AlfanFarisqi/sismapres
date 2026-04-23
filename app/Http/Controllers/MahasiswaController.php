@@ -9,7 +9,8 @@ class MahasiswaController extends Controller
 {
     public function index()
     {
-        return Mahasiswa::all();
+        $mahasiswas = Mahasiswa::all();
+        return view('admin.mahasiswa.index', compact('mahasiswas'));
     }
 
     public function store(Request $request)
@@ -19,31 +20,43 @@ class MahasiswaController extends Controller
             'nama' => 'required|string|max:255',
             'npm' => 'required|string|unique:mahasiswas,npm',
             'tingkat' => 'required|integer',
+            'email' => 'nullable|email',
+            'no_hp' => 'nullable|string',
+            'alamat' => 'nullable|string',
         ]);
 
-        return Mahasiswa::create($validated);
+        Mahasiswa::create($validated);
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil ditambahkan.');
     }
 
     public function show(Mahasiswa $mahasiswa)
     {
-        return $mahasiswa;
+        return view('admin.mahasiswa.show', compact('mahasiswa'));
+    }
+
+    public function edit(Mahasiswa $mahasiswa)
+    {
+        return view('admin.mahasiswa.edit', compact('mahasiswa'));
     }
 
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
         $validated = $request->validate([
-            'nama' => 'sometimes|string|max:255',
-            'npm' => 'sometimes|string|unique:mahasiswas,npm,' . $mahasiswa->id,
-            'tingkat' => 'sometimes|integer',
+            'nama' => 'required|string|max:255',
+            'npm' => 'required|string|unique:mahasiswas,npm,' . $mahasiswa->id,
+            'tingkat' => 'required|integer',
+            'email' => 'nullable|email',
+            'no_hp' => 'nullable|string',
+            'alamat' => 'nullable|string',
         ]);
 
         $mahasiswa->update($validated);
-        return $mahasiswa;
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil diperbarui.');
     }
 
     public function destroy(Mahasiswa $mahasiswa)
     {
         $mahasiswa->delete();
-        return response()->json(['message' => 'Deleted successfully']);
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 }

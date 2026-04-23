@@ -12,7 +12,8 @@ class Mahasiswa extends Model
         'npm',
         'tingkat',
         'email',
-        'no.hp'
+        'no_hp',
+        'alamat'
     ];
 
     public function user()

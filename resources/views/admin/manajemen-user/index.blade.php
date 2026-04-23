@@ -10,9 +10,7 @@
         <h5 class="mb-1 fw-bold" style="color: #1a2c3a !important;">Pengelolaan Akun Pengguna</h5>
         <span class="app-sub" style="color: #355872;">Halaman ini digunakan untuk mengelola data akun pengguna pada sistem.</span>
     </div>
-    <button class="btn btn-primary shadow-sm" title="Tambah User">
-        <i class="fa-solid fa-plus"></i> Tambah User
-    </button>
+
 </div>
 
 <div class="card-container">

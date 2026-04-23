@@ -30,10 +30,6 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('sidebarData'));
     }
 
-    public function mahasiswa()
-    {
-        return view('admin.mahasiswa.index');
-    }
 
     public function dataPenilaian()
     {
