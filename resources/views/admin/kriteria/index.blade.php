@@ -56,10 +56,12 @@
 <div class="card-container">
     <div class="filter-section d-flex justify-content-between align-items-center">
         <label for="search-kriteria">Daftar Kriteria</label>
-        <div class="search-box">
-            <input type="text" id="search-kriteria" class="form-control" placeholder="Cari kriteria...">
-            <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
-        </div>
+        <form method="GET" action="">
+            <div class="search-box">
+                <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Cari kriteria...">
+                <button type="submit" class="btn btn-primary">Cari</button>
+            </div>
+        </form>
     </div>
 
     <div class="table-responsive">

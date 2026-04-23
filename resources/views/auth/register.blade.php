@@ -13,7 +13,7 @@
     <!-- KIRI -->
     <div class="left">
         <div>
-            <h1>Gabung Sekarang 🚀</h1>
+            <h1>Gabung Sekarang Di Sismapres!</h1>
             <p style="line-height: 1.6;">
                 Daftarkan diri Anda untuk mengikuti seleksi Siswa Berprestasi.<br><br>
                 Isi data dengan benar dan pastikan email yang digunakan aktif untuk menerima informasi terbaru dari kami.

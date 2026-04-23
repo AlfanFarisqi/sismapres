@@ -13,9 +13,10 @@
     <!-- KIRI -->
     <div class="left">
         <div>
-            <h1>Selamat Datang 👋</h1>
+            <h1>Selamat Datang Di Sismapres!</h1>
             <p style="line-height: 1.6;">
-                Sistem Seleksi Siswa Berprestasi
+                Sistem Seleksi Mahasiswa Berprestasi <br><br>
+                Isi data dengan benar dan pastikan email yang digunakan aktif untuk menerima informasi terbaru dari kami.
             </p>
 
             <div class="workflow">

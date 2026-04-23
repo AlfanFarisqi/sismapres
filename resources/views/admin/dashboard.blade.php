@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Dashboard Admin')
+
 @section('content')
 
 <h2 class="page-title"><i class="fa-solid fa-house"></i> Dashboard</h2>

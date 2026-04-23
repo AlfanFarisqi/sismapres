@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kriterias = Kriteria::all();
-        return view('admin.kriteria.index', compact('kriterias'));
+        $search = $request->search;
+
+        $kriterias = Kriteria::when($search, function ($query, $search) {
+            $query->where('nama', 'like', '%' . $search . '%');
+        })->get();
+
+        return view('admin.kriteria.index', compact('kriterias', 'search'));
     }
 
     public function store(Request $request)
