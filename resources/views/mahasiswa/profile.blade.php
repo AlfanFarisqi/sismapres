@@ -130,8 +130,9 @@
 <div class="container">
 
     <!-- HEADER -->
-    <div class="header">
-        👆 <span>SISMAPRES</span>
+    <div class="header" style="justify-content: space-between;">
+        <div>👆 <span>SISMAPRES</span></div>
+        <a href="{{ route('mahasiswa.informasi') }}" style="color: white; text-decoration: none; font-size: 16px; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 8px;">⬅️ Kembali</a>
     </div>
 
     <!-- CONTENT -->
@@ -140,8 +141,12 @@
         <!-- KIRI -->
         <div class="left">
             <div class="profile-card">
-                <div class="profile-img"></div>
-                <button class="upload-btn">Upload Foto</button>
+                <form action="{{ route('mahasiswa.upload-foto') }}" method="POST" enctype="multipart/form-data" id="fotoForm">
+                    @csrf
+                    <div class="profile-img" id="imgPreview" style="{{ isset($mahasiswa) && $mahasiswa->foto ? 'background-image: url(' . asset('storage/' . $mahasiswa->foto) . ');' : '' }} background-size: cover; background-position: center;"></div>
+                    <input type="file" name="foto" id="fotoInput" style="display:none" accept="image/*">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('fotoInput').click()">Upload Foto</button>
+                </form>
             </div>
         </div>
 
@@ -189,5 +194,19 @@
 
 </div>
 
+<script>
+    document.getElementById('fotoInput').addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('imgPreview').style.backgroundImage = 'url(' + e.target.result + ')';
+            }
+            reader.readAsDataURL(e.target.files[0]);
+            
+            // Auto submit form when photo is selected
+            document.getElementById('fotoForm').submit();
+        }
+    });
+</script>
 </body>
 </html>

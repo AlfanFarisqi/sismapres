@@ -38,12 +38,29 @@ class AdminController extends Controller
 
     public function uploadBerkas()
     {
-        return view('admin.upload-berkas.index');
+        $mahasiswas = Mahasiswa::with('berkas')->get();
+        return view('admin.upload-berkas.index', compact('mahasiswas'));
+    }
+
+    public function verifikasiBerkas(Request $request, Mahasiswa $mahasiswa)
+    {
+        $request->validate([
+            'status' => 'required|in:lolos,tidak_lolos'
+        ]);
+
+        $mahasiswa->update([
+            'status_berkas' => $request->status
+        ]);
+
+        return redirect()->back()->with('success', 'Status berkas berhasil diperbarui.');
     }
 
     public function hasilSeleksi()
     {
-        return view('admin.hasil-seleksi.index');
+        $hasilSeleksi = \App\Models\HasilSeleksi::with('mahasiswa')->orderBy('ranking')->get();
+        $tidakLolos = Mahasiswa::where('status_berkas', 'tidak_lolos')->get();
+        
+        return view('admin.hasil-seleksi.index', compact('hasilSeleksi', 'tidakLolos'));
     }
 
     public function manajemenUser()

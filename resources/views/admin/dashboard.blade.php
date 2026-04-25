@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h2 class="page-title"><img src="{{ asset('assets/logo TI.png') }}" alt="Logo" class="title-logo"> Dashboard</h2>
+<h2 class="page-title"> Dashboard</h2>
 
 <div class="welcome-box">
     <span>Selamat datang <b>ADMIN</b> Anda bisa mengelola sistem melalui pilihan menu di bawah</span>
