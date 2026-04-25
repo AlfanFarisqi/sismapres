@@ -38,14 +38,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-penilaian', [App\Http\Controllers\PenilaianController::class, 'index'])->name('data-penilaian.input');
         Route::post('/data-penilaian', [App\Http\Controllers\PenilaianController::class, 'store'])->name('data-penilaian.store');
         Route::get('/upload-berkas', [AdminController::class, 'uploadBerkas'])->name('upload-berkas.index');
+        Route::post('/upload-berkas/verifikasi/{mahasiswa}', [AdminController::class, 'verifikasiBerkas'])->name('upload-berkas.verifikasi');
         Route::get('/hasil-seleksi', [AdminController::class, 'hasilSeleksi'])->name('hasil-seleksi.index');
         Route::post('/hasil-seleksi/calculate', [HasilController::class, 'calculate'])->name('hasil-seleksi.calculate');
         Route::get('/hasil-seleksi/data', [HasilController::class, 'index'])->name('hasil-seleksi.data');
         Route::get('/manajemen-user', [AdminController::class, 'manajemenUser'])->name('manajemen-user.index');
     });
 
-    Route::get('/mahasiswa/dashboard', function () {
-        return "Selamat datang Mahasiswa. Role Anda: " . auth()->user()->role;
+    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        Route::get('/profile', function () {
+            $mahasiswa = \App\Models\Mahasiswa::where('user_id', auth()->id())->first();
+            return view('mahasiswa.profile', compact('mahasiswa'));
+        })->name('profile');
+        
+        Route::post('/upload-foto', [\App\Http\Controllers\ProfileController::class, 'uploadFoto'])->name('upload-foto');
+
+        Route::get('/informasi', function () {
+            return view('mahasiswa.informasi');
+        })->name('informasi');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

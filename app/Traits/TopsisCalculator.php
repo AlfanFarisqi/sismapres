@@ -10,7 +10,7 @@ trait TopsisCalculator
 {
     public function calculateTopsis()
     {
-        $mahasiswas = Mahasiswa::with('penilaians')->get();
+        $mahasiswas = Mahasiswa::with('penilaians')->where('status_berkas', 'lolos')->get();
         $kriterias = Kriteria::all();
 
         if ($mahasiswas->isEmpty() || $kriterias->isEmpty()) {

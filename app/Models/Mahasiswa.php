@@ -13,7 +13,9 @@ class Mahasiswa extends Model
         'tingkat',
         'email',
         'no_hp',
-        'alamat'
+        'alamat',
+        'status_berkas',
+        'foto',
     ];
 
     public function user()

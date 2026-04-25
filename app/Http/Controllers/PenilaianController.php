@@ -14,7 +14,7 @@ class PenilaianController extends Controller
 
     public function index()
     {
-        $mahasiswas = Mahasiswa::with('berkas')->get();
+        $mahasiswas = Mahasiswa::with('berkas')->where('status_berkas', 'lolos')->get();
         $kriterias = Kriteria::all();
         
         // Ambil data penilaian yang dikelompokkan berdasarkan mahasiswa
@@ -29,6 +29,11 @@ class PenilaianController extends Controller
             'mahasiswa_id' => 'required|exists:mahasiswas,id',
             'nilai' => 'required|array',
         ]);
+
+        $mahasiswa = Mahasiswa::findOrFail($request->mahasiswa_id);
+        if ($mahasiswa->status_berkas !== 'lolos') {
+            return redirect()->back()->with('error', 'Penilaian gagal: Mahasiswa ini belum lolos verifikasi administrasi/berkas.');
+        }
 
         try {
             DB::beginTransaction();

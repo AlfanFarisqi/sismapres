@@ -3,7 +3,7 @@
 @section('title', 'Manajemen User')
 
 @section('content')
-<h2 class="page-title"><img src="{{ asset('assets/logo TI.png') }}" alt="Logo" class="title-logo"> Manajemen User</h2>
+<h2 class="page-title"> Manajemen User</h2>
 
 <div class="welcome-box mb-4">
     <div>

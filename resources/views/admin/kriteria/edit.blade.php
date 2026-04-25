@@ -6,7 +6,7 @@
 <div class="container-fluid py-4 px-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center">
-            <h2 class="fw-bold mb-0" style="color: #26415e;"><img src="{{ asset('assets/logo TI.png') }}" alt="Logo" class="title-logo"> Edit Data Kriteria</h2>
+            <h2 class="fw-bold mb-0" style="color: #26415e;"> Edit Data Kriteria</h2>
         </div>
     </div>
 
