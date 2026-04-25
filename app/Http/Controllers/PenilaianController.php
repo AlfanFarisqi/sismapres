@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
 {
+    use \App\Traits\TopsisCalculator;
+
     public function index()
     {
-        $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::with('berkas')->get();
         $kriterias = Kriteria::all();
         
         // Ambil data penilaian yang dikelompokkan berdasarkan mahasiswa
@@ -43,8 +45,11 @@ class PenilaianController extends Controller
                 );
             }
 
+            // Jalankan perhitungan TOPSIS secara otomatis
+            $this->calculateTopsis();
+
             DB::commit();
-            return redirect()->back()->with('success', 'Penilaian berhasil disimpan.');
+            return redirect()->back()->with('success', 'Penilaian berhasil disimpan dan peringkat telah diperbarui.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

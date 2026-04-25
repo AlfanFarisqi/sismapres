@@ -3,7 +3,7 @@
 @section('title', 'Hasil Seleksi')
 
 @section('content')
-<h2 class="page-title"><i class="fa-solid fa-trophy"></i> Hasil Seleksi</h2>
+<h2 class="page-title"><img src="{{ asset('assets/logo TI.png') }}" alt="Logo" class="title-logo"> Hasil Seleksi</h2>
 
 <div class="welcome-box mb-4">
     <div>

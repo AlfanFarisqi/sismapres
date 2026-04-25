@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h2 class="page-title"><i class="fa-solid fa-list-check"></i> Data Kriteria</h2>
+<h2 class="page-title"><img src="{{ asset('assets/logo TI.png') }}" alt="Logo" class="title-logo"> Data Kriteria</h2>
 
 <div class="welcome-box mb-4">
     <div>

@@ -30,4 +30,9 @@ class Mahasiswa extends Model
     {
         return $this->hasOne(HasilSeleksi::class);
     }
+
+    public function berkas()
+    {
+        return $this->hasMany(Berkas::class);
+    }
 }
