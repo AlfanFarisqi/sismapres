@@ -13,6 +13,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo TI.png') }}">
+    <style>
+        .title-logo {
+            height: 35px;
+            width: auto;
+            margin-right: 12px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>

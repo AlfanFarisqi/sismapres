@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h2 class="page-title"><i class="fa-solid fa-graduation-cap"></i> Data Mahasiswa</h2>
+<h2 class="page-title"><img src="{{ asset('assets/logo TI.png') }}" alt="Logo" class="title-logo"> Data Mahasiswa</h2>
 
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
