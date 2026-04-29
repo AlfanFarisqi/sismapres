@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\HasilController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MahasiswaDashboardController;
 
 Route::get('/', function () {
     return redirect('/register');
@@ -46,16 +47,27 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-        Route::get('/profile', function () {
-            $mahasiswa = \App\Models\Mahasiswa::where('user_id', auth()->id())->first();
-            return view('mahasiswa.profile', compact('mahasiswa'));
-        })->name('profile');
+        Route::get('/profile', [MahasiswaDashboardController::class, 'showProfile'])->name('profile');
+        Route::post('/profile', [MahasiswaDashboardController::class, 'updateProfile'])->name('profile.update');
         
         Route::post('/upload-foto', [\App\Http\Controllers\ProfileController::class, 'uploadFoto'])->name('upload-foto');
+        
+        Route::get('/berkas', [MahasiswaDashboardController::class, 'showBerkas'])->name('berkas.index');
+        Route::post('/berkas', [MahasiswaDashboardController::class, 'storeBerkas'])->name('berkas.store');
+        
+        Route::get('/penilaian', [MahasiswaDashboardController::class, 'showPenilaian'])->name('penilaian.index');
+        Route::get('/penilaian-data', [MahasiswaDashboardController::class, 'getPenilaian'])->name('penilaian.data');
+        
+        Route::get('/hasil', [MahasiswaDashboardController::class, 'showHasil'])->name('hasil.index');
+        Route::get('/hasil-data', [MahasiswaDashboardController::class, 'getHasilSeleksi'])->name('hasil.data');
 
         Route::get('/informasi', function () {
             return view('mahasiswa.informasi');
         })->name('informasi');
+        
+        Route::get('/pengumuman', function () {
+            return view('mahasiswa.pengumuman');
+        })->name('pengumuman');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
