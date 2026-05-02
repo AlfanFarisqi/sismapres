@@ -6,7 +6,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\HasilController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\MahasiswaDashboardController;
+
+use App\Http\Controllers\Mahasiswa\ProfileController as MahasiswaProfile;
+use App\Http\Controllers\Mahasiswa\BerkasController as MahasiswaBerkas;
+use App\Http\Controllers\Mahasiswa\PenilaianController as MahasiswaPenilaian;
+use App\Http\Controllers\Mahasiswa\HasilController as MahasiswaHasil;
+use App\Http\Controllers\Mahasiswa\InformasiController as MahasiswaInformasi;
+use App\Http\Controllers\Mahasiswa\PengumumanController as MahasiswaPengumuman;
 
 Route::get('/', function () {
     return redirect('/register');
@@ -47,27 +53,24 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-        Route::get('/profile', [MahasiswaDashboardController::class, 'showProfile'])->name('profile');
-        Route::post('/profile', [MahasiswaDashboardController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/profile', [MahasiswaProfile::class, 'index'])->name('profile');
+        Route::post('/profile', [MahasiswaProfile::class, 'update'])->name('profile.update');
         
-        Route::post('/upload-foto', [\App\Http\Controllers\ProfileController::class, 'uploadFoto'])->name('upload-foto');
+        Route::post('/upload-foto', [MahasiswaProfile::class, 'uploadFoto'])->name('upload-foto');
         
-        Route::get('/berkas', [MahasiswaDashboardController::class, 'showBerkas'])->name('berkas.index');
-        Route::post('/berkas', [MahasiswaDashboardController::class, 'storeBerkas'])->name('berkas.store');
+        Route::get('/berkas', [MahasiswaBerkas::class, 'index'])->name('berkas.index');
+        Route::post('/berkas', [MahasiswaBerkas::class, 'store'])->name('berkas.store');
         
-        Route::get('/penilaian', [MahasiswaDashboardController::class, 'showPenilaian'])->name('penilaian.index');
-        Route::get('/penilaian-data', [MahasiswaDashboardController::class, 'getPenilaian'])->name('penilaian.data');
+        Route::get('/penilaian', [MahasiswaPenilaian::class, 'index'])->name('penilaian.index');
+        Route::post('/penilaian', [MahasiswaPenilaian::class, 'store'])->name('penilaian.store');
+        Route::get('/penilaian-data', [MahasiswaPenilaian::class, 'data'])->name('penilaian.data');
         
-        Route::get('/hasil', [MahasiswaDashboardController::class, 'showHasil'])->name('hasil.index');
-        Route::get('/hasil-data', [MahasiswaDashboardController::class, 'getHasilSeleksi'])->name('hasil.data');
+        Route::get('/hasil', [MahasiswaHasil::class, 'index'])->name('hasil.index');
+        Route::get('/hasil-data', [MahasiswaHasil::class, 'data'])->name('hasil.data');
 
-        Route::get('/informasi', function () {
-            return view('mahasiswa.informasi');
-        })->name('informasi');
+        Route::get('/informasi', [MahasiswaInformasi::class, 'index'])->name('informasi');
         
-        Route::get('/pengumuman', function () {
-            return view('mahasiswa.pengumuman');
-        })->name('pengumuman');
+        Route::get('/pengumuman', [MahasiswaPengumuman::class, 'index'])->name('pengumuman');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

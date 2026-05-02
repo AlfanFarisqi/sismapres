@@ -90,12 +90,19 @@ body {
     <div class="content">
         <div class="announcement">
             <h2>📢 Pengumuman</h2>
-            <p>
-                Hasil seleksi mahasiswa berprestasi akan diumumkan<br>
-                pada tanggal <b>30 Juni 2026</b>.
-            </p>
-
-            <button class="btn">Lihat Hasil</button>
+            @if($sudahDiumumkan)
+                <p>
+                    Hasil seleksi mahasiswa berprestasi telah diumumkan!<br>
+                    Silakan klik tombol di bawah untuk melihat hasil.
+                </p>
+                <a href="{{ route('mahasiswa.hasil.index') }}" class="btn" style="text-decoration: none; display: inline-block;">Lihat Hasil</a>
+            @else
+                <p>
+                    Hasil seleksi mahasiswa berprestasi akan diumumkan<br>
+                    pada tanggal <b>{{ \Carbon\Carbon::parse($tanggalPengumuman)->format('d F Y') }}</b>.
+                </p>
+                <button class="btn" disabled style="background: #ccc; cursor: not-allowed;">Belum Tersedia</button>
+            @endif
         </div>
     </div>
 
