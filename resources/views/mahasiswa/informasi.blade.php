@@ -140,7 +140,7 @@
             <div class="step">6. Pengumuman Hasil Seleksi</div>
         </div>
 
-        <button class="btn">Daftar</button>
+        <a href="{{ route('mahasiswa.profile') }}" class="btn" style="text-decoration: none; display: inline-block; text-align: center;">Daftar</a>
     </div>
 
 </div>

@@ -119,26 +119,25 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Kelas</th>
+                <th>NPM</th>
                 <th>Tingkat</th>
                 <th>Nilai</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Ahmad Fauzi</td>
-                <td>TI-3A</td>
-                <td>Tingkat 3</td>
-                <td>90</td>
+            @forelse($hasilSeleksi as $index => $item)
+            <tr style="{{ (Auth::id() == $item->mahasiswa->user_id) ? 'background-color: #e3f2fd; font-weight: bold;' : '' }}">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->mahasiswa->nama }}</td>
+                <td>{{ $item->mahasiswa->npm }}</td>
+                <td>Tingkat {{ $item->mahasiswa->tingkat }}</td>
+                <td>{{ number_format($item->total_skor, 4) }}</td>
             </tr>
+            @empty
             <tr>
-                <td>2</td>
-                <td>Siti Aminah</td>
-                <td>TI-2B</td>
-                <td>Tingkat 2</td>
-                <td>85</td>
+                <td colspan="5">Belum ada data hasil seleksi.</td>
             </tr>
+            @endforelse
         </tbody>
     </table>
 

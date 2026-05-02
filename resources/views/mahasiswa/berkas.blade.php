@@ -85,32 +85,51 @@
         Pastikan file jelas dan sesuai ketentuan.
     </div>
 
-    <form method="POST" action="#" enctype="multipart/form-data">
+    @if(session('success'))
+        <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- KTM -->
+    <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
         @csrf
-
-        <!-- KTM -->
-        <div class="file-card">
+        <div class="file-card" style="{{ isset($berkas['KTM']) ? 'border: 2px solid #28a745;' : '' }}">
             <label>KTM (Kartu Tanda Mahasiswa)</label>
-            <small>Upload scan KTM yang masih berlaku (PDF)</small>
-            <input type="file" accept="application/pdf">
+            <small>Status: {!! isset($berkas['KTM']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
+            <input type="hidden" name="nama_berkas" value="KTM">
+            <input type="file" name="file" accept="application/pdf,image/*" required>
+            <button type="submit" class="btn" style="margin-top: 10px;">{{ isset($berkas['KTM']) ? 'Ganti KTM' : 'Upload KTM' }}</button>
         </div>
-
-        <!-- KTP -->
-        <div class="file-card">
-            <label>KTP (Kartu Tanda Penduduk)</label>
-            <small>Upload scan KTP yang jelas dan tidak buram (PDF)</small>
-            <input type="file" accept="application/pdf">
-        </div>
-
-        <!-- KHS -->
-        <div class="file-card">
-            <label>KHS (Semester 1 - Terakhir)</label>
-            <small>Upload seluruh KHS dalam satu file (PDF)</small>
-            <input type="file" accept="application/pdf">
-        </div>
-
-        <button class="btn">Upload Berkas</button>
     </form>
+
+    <!-- KTP -->
+    <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="file-card" style="{{ isset($berkas['KTP']) ? 'border: 2px solid #28a745;' : '' }}">
+            <label>KTP (Kartu Tanda Penduduk)</label>
+            <small>Status: {!! isset($berkas['KTP']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
+            <input type="hidden" name="nama_berkas" value="KTP">
+            <input type="file" name="file" accept="application/pdf,image/*" required>
+            <button type="submit" class="btn" style="margin-top: 10px;">{{ isset($berkas['KTP']) ? 'Ganti KTP' : 'Upload KTP' }}</button>
+        </div>
+    </form>
+
+    <!-- KHS -->
+    <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="file-card" style="{{ isset($berkas['KHS']) ? 'border: 2px solid #28a745;' : '' }}">
+            <label>KHS (Kartu Hasil Studi)</label>
+            <small>Status: {!! isset($berkas['KHS']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
+            <input type="hidden" name="nama_berkas" value="KHS">
+            <input type="file" name="file" accept="application/pdf,image/*" required>
+            <button type="submit" class="btn" style="margin-top: 10px;">{{ isset($berkas['KHS']) ? 'Ganti KHS' : 'Upload KHS' }}</button>
+        </div>
+    </form>
+
+    <div style="text-align: right; margin-top: 20px;">
+        <a href="{{ route('mahasiswa.penilaian.index') }}" style="color: #355872; text-decoration: none; font-weight: bold; background: #9CD5FF; padding: 10px 20px; border-radius: 10px;">Lanjut ke Form Penilaian ➡️</a>
+    </div>
 
 </div>
 

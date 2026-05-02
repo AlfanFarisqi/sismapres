@@ -12,12 +12,11 @@
 
         .container {
             width: 90%;
-            height: 90vh;
+            min-height: 90vh;
             margin: 20px auto;
             background: #F7F8F0;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            overflow: hidden;
         }
 
         /* HEADER */
@@ -38,7 +37,6 @@
         /* CONTENT */
         .content {
             display: flex;
-            height: calc(100% - 60px);
         }
 
         /* KIRI */
@@ -154,39 +152,45 @@
 
         <!-- KANAN -->
         <div class="right">
-            <form>
-                
+            <form action="{{ route('mahasiswa.profile.update') }}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text">
+                    <input type="text" name="nama" value="{{ old('nama', $mahasiswa->nama ?? '') }}" required>
                 </div>
 
                 <div class="form-group">
                     <label>NPM</label>
-                    <input type="number">
+                    <input type="text" name="npm" value="{{ old('npm', $mahasiswa->npm ?? '') }}" required>
                 </div>
 
                 <div class="form-group">
                     <label>Tingkat</label>
-                    <select name="tingkat">
-                        <option value="" disabled selected>Pilih Tingkat</option>
-                        <option value="2">Tingkat 2</option>
-                        <option value="3">Tingkat 3</option>
-                        <option value="4">Tingkat 4</option>
+                    <select name="tingkat" required>
+                        <option value="" disabled {{ !isset($mahasiswa) ? 'selected' : '' }}>Pilih Tingkat</option>
+                        <option value="2" {{ (isset($mahasiswa) && $mahasiswa->tingkat == 2) ? 'selected' : '' }}>Tingkat 2</option>
+                        <option value="3" {{ (isset($mahasiswa) && $mahasiswa->tingkat == 3) ? 'selected' : '' }}>Tingkat 3</option>
+                        <option value="4" {{ (isset($mahasiswa) && $mahasiswa->tingkat == 4) ? 'selected' : '' }}>Tingkat 4</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" pattern=".+@gmail\.com" title="Harap masukkan email dengan domain @gmail.com" required>
+                    <input type="email" name="email" value="{{ Auth::user()->email }}" disabled>
+                    <small style="color: #666;">Email tidak dapat diubah.</small>
                 </div>
 
                 <div class="form-group">
                     <label>No. Phone</label>
-                    <input type="number">
+                    <input type="text" name="no_hp" value="{{ old('no_hp', $mahasiswa->no_hp ?? '') }}">
                 </div>
 
-                <button class="btn-save">Simpan</button>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea name="alamat" style="width: 100%; padding: 10px; border-radius: 10px; border: none; background: #9CD5FF; outline: none; font-family: inherit;">{{ old('alamat', $mahasiswa->alamat ?? '') }}</textarea>
+                </div>
+
+                <button type="submit" class="btn-save">Simpan & Lanjut</button>
             </form>
         </div>
 
