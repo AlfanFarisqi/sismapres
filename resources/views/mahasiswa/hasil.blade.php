@@ -7,16 +7,18 @@
     body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #355872, #7AAACE);
+        background-color: #F7F8F0;
+        background-image: radial-gradient(#9CD5FF 1px, transparent 1px);
+        background-size: 20px 20px;
     }
 
     .container {
         width: 90%;
         margin: 30px auto;
-        background: #F7F8F0;
+        background: #FFFFFF;
         border-radius: 20px;
         padding: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     /* HEADER */
@@ -98,7 +100,8 @@
 
     <!-- HEADER -->
     <div class="header">
-        👆 <h2>SISMAPRES</h2>
+        <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 40px; margin-right: 10px;">
+        <h2>SISMAPRES</h2>
     </div>
 
     <!-- TITLE -->

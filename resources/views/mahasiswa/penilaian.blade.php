@@ -7,16 +7,18 @@
     body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #355872, #7AAACE);
+        background-color: #F7F8F0;
+        background-image: radial-gradient(#9CD5FF 1px, transparent 1px);
+        background-size: 20px 20px;
     }
 
     .container {
         width: 85%;
         margin: 30px auto;
-        background: #F7F8F0;
+        background: #FFFFFF;
         padding: 30px;
         border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     h2 {
@@ -85,40 +87,100 @@
 <body>
 
 <div class="container">
-<h2>📊 Form Penilaian Seleksi</h2>
+<h2>Form Penilaian Seleksi</h2>
 
-@if(session('success'))
-    <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if(session('error'))
-    <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-        {{ session('error') }}
-    </div>
-@endif
-
-<form method="POST" action="{{ route('mahasiswa.penilaian.store') }}" enctype="multipart/form-data">
+<form method="POST" action="#" enctype="multipart/form-data">
 @csrf
 
-@foreach($kriterias as $k)
+<!-- C1 IPK -->
 <div class="card">
-    <h3>{{ $k->nama }}</h3>
-    <label>Masukkan Nilai/Skor</label>
-    <input type="number" name="nilai[{{ $k->id }}]" value="{{ $penilaians[$k->id] ?? '' }}" required>
-    <div class="note">Jenis Kriteria: {{ ucfirst($k->jenis) }} | Bobot: {{ $k->bobot }}%</div>
+    <h3>C1 - IPK</h3>
+    <label>Nilai IPK Terakhir</label>
+    <input type="number" step="0.01" placeholder="Contoh: 3.75">
 </div>
-@endforeach
 
-<button type="submit" class="btn">Simpan Penilaian</button>
+<!-- C2 Prestasi -->
+<div class="card">
+    <h3>C2 - Prestasi</h3>
+
+    <label>Jenis Prestasi</label>
+    <input type="text" placeholder="Akademik / Non Akademik">
+
+    <label>Tingkat Prestasi</label>
+    <select>
+        <option>Regional</option>
+        <option>Nasional</option>
+        <option>Internasional</option>
+    </select>
+
+    <label>Nama Lomba / Kegiatan</label>
+    <input type="text">
+
+    <label>Tahun Prestasi</label>
+    <input type="number">
+
+    <label>Upload Sertifikat (PDF)</label>
+    <input type="file" accept="application/pdf">
+    <div class="note">Format: PDF maksimal 2MB</div>
+</div>
+
+<!-- C3 Organisasi -->
+<div class="card">
+    <h3>C3 - Keaktifan Organisasi</h3>
+
+    <label>Nama Organisasi</label>
+    <input type="text">
+
+    <label>Jabatan</label>
+    <select>
+        <option>Anggota</option>
+        <option>Pengurus</option>
+        <option>Ketua</option>
+    </select>
+
+    <label>Lama Aktif</label>
+    <input type="text" placeholder="Contoh: 2 Tahun">
+
+    <label>Upload Surat Organisasi (PDF)</label>
+    <input type="file" accept="application/pdf">
+</div>
+
+<!-- C4 Komunikasi -->
+<div class="card">
+    <h3>C4 - Kemampuan Komunikasi</h3>
+
+    <label>Pengalaman Presentasi / Lomba</label>
+    <textarea rows="3"></textarea>
+
+    <div class="note">
+        * Penilaian akhir akan dilakukan oleh admin melalui wawancara / presentasi
+    </div>
+</div>
+
+<!-- C5 Inovasi -->
+<div class="card">
+    <h3>C5 - Inovasi / Gagasan</h3>
+
+    <label>Judul Inovasi</label>
+    <input type="text">
+
+    <label>Deskripsi Singkat</label>
+    <textarea rows="3"></textarea>
+
+    <label>Jenis</label>
+    <select>
+        <option>Ide</option>
+        <option>Proposal</option>
+        <option>Produk</option>
+    </select>
+
+    <label>Upload Proposal / Laporan (PDF)</label>
+    <input type="file" accept="application/pdf">
+</div>
+
+<button class="btn">Simpan Penilaian</button>
 
 </form>
-
-<div style="text-align: right; margin-top: 20px;">
-    <a href="{{ route('mahasiswa.pengumuman') }}" style="color: #355872; text-decoration: none; font-weight: bold;">Lihat Pengumuman ➡️</a>
-</div>
-
 </div>
 
 </body>

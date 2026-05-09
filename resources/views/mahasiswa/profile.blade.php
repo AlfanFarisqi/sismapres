@@ -7,16 +7,18 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #355872, #7AAACE);
+            background-color: #F7F8F0;
+            background-image: radial-gradient(#9CD5FF 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         .container {
             width: 90%;
             min-height: 90vh;
             margin: 20px auto;
-            background: #F7F8F0;
+            background: #FFFFFF;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         /* HEADER */
@@ -129,8 +131,11 @@
 
     <!-- HEADER -->
     <div class="header" style="justify-content: space-between;">
-        <div>👆 <span>SISMAPRES</span></div>
-        <a href="{{ route('mahasiswa.informasi') }}" style="color: white; text-decoration: none; font-size: 16px; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 8px;">⬅️ Kembali</a>
+        <div style="display: flex; align-items: center;">
+            <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 30px; margin-right: 10px;">
+            <span>SISMAPRES</span>
+        </div>
+        <a href="{{ route('mahasiswa.informasi') }}" style="color: white; text-decoration: none; font-size: 16px; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 8px;">Kembali</a>
     </div>
 
     <!-- CONTENT -->

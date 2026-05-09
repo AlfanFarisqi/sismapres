@@ -7,16 +7,18 @@
     body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #355872, #7AAACE);
+        background-color: #F7F8F0;
+        background-image: radial-gradient(#9CD5FF 1px, transparent 1px);
+        background-size: 20px 20px;
     }
 
     .container {
         width: 70%;
         margin: 40px auto;
-        background: #F7F8F0;
+        background: #FFFFFF;
         padding: 30px;
         border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     h2 {
@@ -79,7 +81,7 @@
 
 <div class="container">
 
-    <h2>📂 Upload Berkas Administrasi</h2>
+    <h2>Upload Berkas Administrasi</h2>
     <div class="desc">
         Silakan upload dokumen berikut sebagai syarat administrasi.<br>
         Pastikan file jelas dan sesuai ketentuan.
@@ -128,7 +130,7 @@
     </form>
 
     <div style="text-align: right; margin-top: 20px;">
-        <a href="{{ route('mahasiswa.penilaian.index') }}" style="color: #355872; text-decoration: none; font-weight: bold; background: #9CD5FF; padding: 10px 20px; border-radius: 10px;">Lanjut ke Form Penilaian ➡️</a>
+        <a href="{{ route('mahasiswa.penilaian.index') }}" style="color: #355872; text-decoration: none; font-weight: bold; background: #9CD5FF; padding: 10px 20px; border-radius: 10px;">Selanjutnya</a>
     </div>
 
 </div>
