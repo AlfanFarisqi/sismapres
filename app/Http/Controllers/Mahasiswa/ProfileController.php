@@ -28,6 +28,7 @@ class ProfileController extends Controller
             'tingkat' => 'required|integer|min:1',
             'no_hp' => 'nullable|string|max:20',
             'alamat' => 'nullable|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $mahasiswa = $this->getMahasiswa();
@@ -45,6 +46,14 @@ class ProfileController extends Controller
             ]);
         } else {
             $mahasiswa->update($request->only(['nama', 'npm', 'tingkat', 'no_hp', 'alamat']));
+        }
+
+        if ($request->hasFile('foto')) {
+            if ($mahasiswa->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($mahasiswa->foto)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($mahasiswa->foto);
+            }
+            $path = $request->file('foto')->store('fotos', 'public');
+            $mahasiswa->update(['foto' => $path]);
         }
 
         return redirect()->route('mahasiswa.berkas.index')->with('success', 'Profil berhasil diperbarui. Silakan lanjut mengunggah berkas.');
@@ -77,6 +86,17 @@ class ProfileController extends Controller
             $path = $request->file('foto')->store('fotos', 'public');
             $mahasiswa->foto = $path;
             $mahasiswa->save();
+        }
+
+        $dataToUpdate = [];
+        if ($request->filled('nama')) $dataToUpdate['nama'] = $request->nama;
+        if ($request->filled('npm')) $dataToUpdate['npm'] = $request->npm;
+        if ($request->filled('tingkat')) $dataToUpdate['tingkat'] = $request->tingkat;
+        if ($request->filled('no_hp')) $dataToUpdate['no_hp'] = $request->no_hp;
+        if ($request->filled('alamat')) $dataToUpdate['alamat'] = $request->alamat;
+
+        if (!empty($dataToUpdate)) {
+            $mahasiswa->update($dataToUpdate);
         }
 
         return redirect()->back()->with('success', 'Foto profil berhasil diunggah.');

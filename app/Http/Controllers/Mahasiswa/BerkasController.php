@@ -28,7 +28,7 @@ class BerkasController extends Controller
     {
         $request->validate([
             'nama_berkas' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
         $mahasiswa = $this->getMahasiswa();

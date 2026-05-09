@@ -32,7 +32,8 @@ class AuthController extends Controller
             if (Auth::user()->role === 'admin') {
                 return redirect()->intended('/admin/dashboard');
             } else {
-                return redirect()->intended('/mahasiswa/informasi');
+                $lastPage = Auth::user()->last_page;
+                return $lastPage ? redirect($lastPage) : redirect()->intended('/mahasiswa/informasi');
             }
         }
 
@@ -77,7 +78,8 @@ class AuthController extends Controller
         if ((isset(Auth::user()->role) && Auth::user()->role === 'admin') || Auth::user()->username === 'admin123') {
             return redirect()->intended('/admin/dashboard');
         } else {
-            return redirect()->intended('/mahasiswa/informasi');
+            $lastPage = Auth::user()->last_page;
+            return $lastPage ? redirect($lastPage) : redirect()->intended('/mahasiswa/informasi');
         }
     }
 }

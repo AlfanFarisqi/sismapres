@@ -93,6 +93,22 @@
         </div>
     @endif
 
+    @if($errors->any())
+        <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- KTM -->
     <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
         @csrf
