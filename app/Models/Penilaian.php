@@ -10,6 +10,7 @@ class Penilaian extends Model
         'mahasiswa_id',
         'kriteria_id',
         'nilai',
+        'keterangan',
     ];
 
     public function mahasiswa()

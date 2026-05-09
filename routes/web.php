@@ -52,7 +52,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/manajemen-user', [AdminController::class, 'manajemenUser'])->name('manajemen-user.index');
     });
 
-    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+    Route::prefix('mahasiswa')->name('mahasiswa.')->middleware(['track_page'])->group(function () {
+        Route::get('/', function () {
+            $lastPage = Auth::user()->last_page;
+            return $lastPage ? redirect($lastPage) : redirect()->route('mahasiswa.informasi');
+        });
         Route::get('/profile', [MahasiswaProfile::class, 'index'])->name('profile');
         Route::post('/profile', [MahasiswaProfile::class, 'update'])->name('profile.update');
         

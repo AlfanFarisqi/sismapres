@@ -92,8 +92,7 @@ trait TopsisCalculator
 
         // 7. Simpan Hasil dan Ranking
         arsort($preferences);
-        
-        HasilSeleksi::truncate();
+        HasilSeleksi::query()->delete();
         
         $ranking = 1;
         foreach ($preferences as $mahasiswaId => $score) {

@@ -20,6 +20,13 @@
     </div>
 @endif
 
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mb-4 border-0 shadow-sm rounded-4" role="alert">
+        <i class="fa-solid fa-circle-exclamation me-2"></i> {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -69,14 +76,23 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-primary rounded-3 px-3 btn-nilai shadow-sm" 
-                                    style="background-color: #355872; border-color: #355872;"
-                                    data-id="{{ $m->id }}" 
-                                    data-nama="{{ $m->nama }}"
-                                    data-berkas="{{ json_encode($m->berkas) }}"
-                                    data-nilai="{{ json_encode($penilaians->get($m->id)?->pluck('nilai', 'kriteria_id')) }}">
-                                <i class="fa-solid fa-pen-to-square me-1"></i> Nilai
-                            </button>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button class="btn btn-sm btn-info text-white rounded-3 px-3 btn-detail shadow-sm"
+                                        data-id="{{ $m->id }}" 
+                                        data-nama="{{ $m->nama }}"
+                                        data-keterangan="{{ json_encode($penilaians->get($m->id)?->pluck('keterangan', 'kriteria_id')) }}">
+                                    <i class="fa-solid fa-eye me-1"></i> Detail
+                                </button>
+                                <button class="btn btn-sm btn-primary rounded-3 px-3 btn-nilai shadow-sm" 
+                                        style="background-color: #355872; border-color: #355872;"
+                                        data-id="{{ $m->id }}" 
+                                        data-nama="{{ $m->nama }}"
+                                        data-berkas="{{ json_encode($m->berkas) }}"
+                                        data-nilai="{{ json_encode($penilaians->get($m->id)?->pluck('nilai', 'kriteria_id')) }}"
+                                        data-keterangan="{{ json_encode($penilaians->get($m->id)?->pluck('keterangan', 'kriteria_id')) }}">
+                                    <i class="fa-solid fa-pen-to-square me-1"></i> Nilai
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     @empty
@@ -142,6 +158,11 @@
                                         <span class="badge bg-primary-subtle text-primary rounded-pill px-2 small">W: {{ $k->bobot }}</span>
                                     </div>
                                     
+                                    <div class="keterangan-mahasiswa mb-3 p-2 rounded-3 bg-light border-start border-4 border-info d-none">
+                                        <small class="text-muted d-block mb-1"><i class="fa-solid fa-info-circle me-1"></i> Detail Input Mahasiswa:</small>
+                                        <div class="fw-bold text-dark small ket-text"></div>
+                                    </div>
+                                    
                                     <div class="score-group d-flex justify-content-between gap-1" data-kriteria="{{ $k->id }}">
                                         @foreach([0,1,2,3,4,5] as $val)
                                         <button type="button" class="score-btn flex-fill py-2 rounded-3" data-value="{{ $val }}">{{ $val }}</button>
@@ -171,6 +192,28 @@
     </div>
 </div>
 
+<!-- Modal Detail Penilaian -->
+<div class="modal fade" id="modalDetailPenilaian" tabindex="-1" aria-labelledby="modalDetailPenilaianLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-0 text-white p-4" style="background-color: #17a2b8;">
+                <h5 class="modal-title fw-bold" id="modalDetailPenilaianLabel">
+                    <i class="fa-solid fa-circle-info me-2"></i> Detail Input Mahasiswa
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 bg-light">
+                <div id="detail-content" class="d-flex flex-column gap-3">
+                    <!-- Detail diisi via JS -->
+                </div>
+            </div>
+            <div class="modal-footer border-0 bg-light">
+                <button type="button" class="btn btn-secondary rounded-3 px-4" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .avatar-sm { width: 40px; height: 40px; }
     .avatar-sm.bg-primary-subtle { background-color: #e0e7ff; }
@@ -189,6 +232,35 @@
         border-color: #355872;
         box-shadow: 0 4px 6px -1px rgba(53, 88, 114, 0.4);
         transform: translateY(-1px);
+    }
+    .scoring-container {
+        max-height: 65vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    #berkas-list {
+        max-height: 65vh;
+        overflow-y: auto;
+    }
+    
+    /* Custom Scrollbar */
+    .scoring-container::-webkit-scrollbar,
+    #berkas-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    .scoring-container::-webkit-scrollbar-track,
+    #berkas-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .scoring-container::-webkit-scrollbar-thumb,
+    #berkas-list::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+    }
+    .scoring-container::-webkit-scrollbar-thumb:hover,
+    #berkas-list::-webkit-scrollbar-thumb:hover {
+        background: #355872;
     }
     .kriteria-item { transition: transform 0.2s; }
     .kriteria-item:hover { transform: scale(1.01); }
@@ -219,16 +291,83 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Handle Detail Button Click
+    const modalDetail = new bootstrap.Modal(document.getElementById('modalDetailPenilaian'));
+    document.querySelectorAll('.btn-detail').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const nama = this.dataset.nama;
+            const ketData = JSON.parse(this.dataset.keterangan || '{}');
+            const detailContent = document.getElementById('detail-content');
+            
+            document.getElementById('modalDetailPenilaianLabel').innerHTML = `<i class="fa-solid fa-circle-info me-2"></i> Detail Input: <span class="text-white-50">${nama}</span>`;
+            
+            detailContent.innerHTML = '';
+            
+            // Loop through kriteria names (we can use a static map or just rely on the data)
+            const kriteriaNames = {
+                1: 'C1 - IPK',
+                2: 'C2 - Prestasi',
+                3: 'C3 - Organisasi',
+                4: 'C4 - Komunikasi',
+                5: 'C5 - Inovasi'
+            };
+
+            let hasData = false;
+            for (let id in kriteriaNames) {
+                if (ketData[id]) {
+                    hasData = true;
+                    const item = document.createElement('div');
+                    item.className = 'p-3 bg-white border rounded-3 shadow-sm';
+                    item.innerHTML = `
+                        <div class="fw-bold text-primary mb-2 border-bottom pb-1">${kriteriaNames[id]}</div>
+                        <div class="text-dark small">${ketData[id]}</div>
+                    `;
+                    detailContent.appendChild(item);
+                }
+            }
+
+            if (!hasData) {
+                detailContent.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-face-frown fa-3x text-muted mb-3 opacity-25"></i>
+                        <p class="text-muted">Mahasiswa belum mengisi detail penilaian.</p>
+                    </div>
+                `;
+            }
+
+            modalDetail.show();
+        });
+    });
+
     // Handle Edit Button Click
     document.querySelectorAll('.btn-nilai').forEach(btn => {
         btn.addEventListener('click', function() {
             const id = this.dataset.id;
             const nama = this.dataset.nama;
             const nilaiData = JSON.parse(this.dataset.nilai || '{}');
+            const ketData = JSON.parse(this.dataset.keterangan || '{}');
 
             modalTitle.innerHTML = `<i class="fa-solid fa-pen-to-square me-2"></i> Edit Penilaian: <span class="text-white-50">${nama}</span>`;
             mahasiswaSelect.value = id;
             
+            // Reset and set keterangan
+            document.querySelectorAll('.kriteria-item').forEach(item => {
+                const scoreGroup = item.querySelector('.score-group');
+                if (scoreGroup) {
+                    const kriteriaId = scoreGroup.dataset.kriteria;
+                    const ketText = ketData[kriteriaId];
+                    const ketDiv = item.querySelector('.keterangan-mahasiswa');
+                    const ketContent = item.querySelector('.ket-text');
+                    
+                    if (ketText) {
+                        ketDiv.classList.remove('d-none');
+                        ketContent.innerText = ketText;
+                    } else {
+                        ketDiv.classList.add('d-none');
+                    }
+                }
+            });
+
             // Render Berkas
             const berkasList = document.getElementById('berkas-list');
             const berkasData = JSON.parse(this.dataset.berkas || '[]');
