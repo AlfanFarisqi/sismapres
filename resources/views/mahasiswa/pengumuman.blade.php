@@ -8,7 +8,9 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #355872, #7AAACE);
+    background-color: #F7F8F0;
+    background-image: radial-gradient(#9CD5FF 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 /* CONTAINER */
@@ -16,11 +18,11 @@ body {
     width: 90%;
     height: 85vh;
     margin: 40px auto;
-    background: #F7F8F0;
+    background: #FFFFFF;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 /* HEADER */
@@ -82,14 +84,15 @@ body {
 <div class="container">
 
     <!-- HEADER -->
-    <div class="header">
-        👆 SISMAPRES
+    <div class="header" style="display: flex; align-items: center;">
+        <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 30px; margin-right: 10px;">
+        SISMAPRES
     </div>
 
     <!-- CONTENT -->
     <div class="content">
         <div class="announcement">
-            <h2>📢 Pengumuman</h2>
+            <h2>Pengumuman</h2>
             @if($sudahDiumumkan)
                 <p>
                     Hasil seleksi mahasiswa berprestasi telah diumumkan!<br>
