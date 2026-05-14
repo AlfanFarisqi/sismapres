@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Upload Berkas</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO UNP Kediri.png') }}">
 <style>
     body {
         margin: 0;
@@ -13,12 +15,12 @@
     }
 
     .container {
-        width: 70%;
-        margin: 40px auto;
+        width: 85%;
+        margin: 30px auto;
         background: #FFFFFF;
         padding: 30px;
         border-radius: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     h2 {
@@ -35,9 +37,20 @@
 
     .file-card {
         background: #9CD5FF;
-        padding: 15px;
+        padding: 20px;
         border-radius: 15px;
-        margin-bottom: 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+
+    .file-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
     }
 
     .file-card label {
@@ -109,41 +122,49 @@
         </div>
     @endif
 
-    <!-- KTM -->
-    <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
-        @csrf
-        <div class="file-card" style="{{ isset($berkas['KTM']) ? 'border: 2px solid #28a745;' : '' }}">
-            <label>KTM (Kartu Tanda Mahasiswa)</label>
-            <small>Status: {!! isset($berkas['KTM']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
-            <input type="hidden" name="nama_berkas" value="KTM">
-            <input type="file" name="file" accept="application/pdf,image/*" required>
-            <button type="submit" class="btn" style="margin-top: 10px;">{{ isset($berkas['KTM']) ? 'Ganti KTM' : 'Upload KTM' }}</button>
-        </div>
-    </form>
+    <div class="file-grid">
+        <!-- KTM -->
+        <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="file-card" style="{{ isset($berkas['KTM']) ? 'border: 2px solid #28a745;' : '' }}">
+                <div>
+                    <label>KTM (Kartu Tanda Mahasiswa)</label>
+                    <small>Status: {!! isset($berkas['KTM']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
+                    <input type="hidden" name="nama_berkas" value="KTM">
+                    <input type="file" name="file" accept="application/pdf,image/*" required>
+                </div>
+                <button type="submit" class="btn" style="margin-top: 15px;">{{ isset($berkas['KTM']) ? 'Ganti KTM' : 'Upload KTM' }}</button>
+            </div>
+        </form>
 
-    <!-- KTP -->
-    <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
-        @csrf
-        <div class="file-card" style="{{ isset($berkas['KTP']) ? 'border: 2px solid #28a745;' : '' }}">
-            <label>KTP (Kartu Tanda Penduduk)</label>
-            <small>Status: {!! isset($berkas['KTP']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
-            <input type="hidden" name="nama_berkas" value="KTP">
-            <input type="file" name="file" accept="application/pdf,image/*" required>
-            <button type="submit" class="btn" style="margin-top: 10px;">{{ isset($berkas['KTP']) ? 'Ganti KTP' : 'Upload KTP' }}</button>
-        </div>
-    </form>
+        <!-- KTP -->
+        <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="file-card" style="{{ isset($berkas['KTP']) ? 'border: 2px solid #28a745;' : '' }}">
+                <div>
+                    <label>KTP (Kartu Tanda Penduduk)</label>
+                    <small>Status: {!! isset($berkas['KTP']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
+                    <input type="hidden" name="nama_berkas" value="KTP">
+                    <input type="file" name="file" accept="application/pdf,image/*" required>
+                </div>
+                <button type="submit" class="btn" style="margin-top: 15px;">{{ isset($berkas['KTP']) ? 'Ganti KTP' : 'Upload KTP' }}</button>
+            </div>
+        </form>
 
-    <!-- KHS -->
-    <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
-        @csrf
-        <div class="file-card" style="{{ isset($berkas['KHS']) ? 'border: 2px solid #28a745;' : '' }}">
-            <label>KHS (Kartu Hasil Studi)</label>
-            <small>Status: {!! isset($berkas['KHS']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
-            <input type="hidden" name="nama_berkas" value="KHS">
-            <input type="file" name="file" accept="application/pdf,image/*" required>
-            <button type="submit" class="btn" style="margin-top: 10px;">{{ isset($berkas['KHS']) ? 'Ganti KHS' : 'Upload KHS' }}</button>
-        </div>
-    </form>
+        <!-- KHS -->
+        <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="file-card" style="{{ isset($berkas['KHS']) ? 'border: 2px solid #28a745;' : '' }}">
+                <div>
+                    <label>KHS (Kartu Hasil Studi)</label>
+                    <small>Status: {!! isset($berkas['KHS']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
+                    <input type="hidden" name="nama_berkas" value="KHS">
+                    <input type="file" name="file" accept="application/pdf,image/*" required>
+                </div>
+                <button type="submit" class="btn" style="margin-top: 15px;">{{ isset($berkas['KHS']) ? 'Ganti KHS' : 'Upload KHS' }}</button>
+            </div>
+        </form>
+    </div>
 
     <div style="text-align: right; margin-top: 20px;">
         <a href="{{ route('mahasiswa.penilaian.index') }}" style="color: #355872; text-decoration: none; font-weight: bold; background: #9CD5FF; padding: 10px 20px; border-radius: 10px;">Selanjutnya</a>

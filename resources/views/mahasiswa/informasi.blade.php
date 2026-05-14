@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Informasi Seleksi</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO UNP Kediri.png') }}">
     <style>
         body {
             margin: 0;
@@ -13,13 +15,12 @@
         }
 
         .container {
-            width: 90%;
-            min-height: 90vh;
-            margin: 20px auto;
+            width: 85%;
+            margin: 30px auto;
             background: #FFFFFF;
             border-radius: 20px;
             display: flex;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 

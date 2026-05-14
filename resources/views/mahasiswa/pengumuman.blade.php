@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Pengumuman</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO UNP Kediri.png') }}">
 
 <style>
 body {
@@ -15,14 +17,14 @@ body {
 
 /* CONTAINER */
 .container {
-    width: 90%;
-    height: 85vh;
-    margin: 40px auto;
+    width: 85%;
+    margin: 30px auto;
     background: #FFFFFF;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 /* HEADER */

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/cssregister.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/logo TI.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO UNP Kediri.png') }}">
 </head>
 <body>
 
@@ -59,7 +59,10 @@
             <form method="POST" action="{{ url('/register') }}">
                 @csrf
 
-                <h2>Daftar Akun</h2>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 60px; margin-bottom: 10px;">
+                    <h2 style="margin: 0; color: #355872; font-size: 24px;">SISMAPRES</h2>
+                </div>
 
                 @if ($errors->any())
                     <div class="alert-error">
