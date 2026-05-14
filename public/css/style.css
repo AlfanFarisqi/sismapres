@@ -31,12 +31,21 @@ body {
 }
 
 .logo-img {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 12px;
     background: #ffffff;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 16px rgba(53, 88, 114, 0.12);
+    border: 2px solid #355872;
+    padding: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.logo-img:hover {
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 12px 20px rgba(53, 88, 114, 0.2);
 }
 
 .topbar-text {
@@ -45,22 +54,26 @@ body {
 }
 
 .univ-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: #333;
-    letter-spacing: 0.5px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #355872;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .app-name {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
-    color: #2c3e50;
-    margin: 2px 0;
+    color: #1a2c3a;
+    margin: 1px 0;
+    line-height: 1.2;
 }
 
 .app-sub {
-    font-size: 14px;
-    color: #6c757d;
+    font-size: 13px;
+    color: #7AAACE;
+    font-weight: 600;
+    font-style: italic;
 }
 
 .topbar-right {

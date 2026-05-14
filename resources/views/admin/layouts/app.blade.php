@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/logo TI.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO UNP Kediri.png') }}">
     <style>
         .title-logo {
             height: 35px;
@@ -30,8 +30,8 @@
     <!-- Topbar -->
     <header class="topbar">
         <div class="topbar-left">
-            <img src="{{ asset('assets/logo TI.png') }}" alt="Logo TI" class="logo-img"
-                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=TI&background=355872&color=fff&rounded=true';">
+            <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" class="logo-img"
+                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=UNP&background=355872&color=fff&rounded=true';">
             <div class="topbar-text">
                 <div class="univ-name">UNIVERSITAS NUSANTARA PGRI KEDIRI</div>
                 <div class="app-name">Sistem Penunjang Keputusan (SPK) Seleksi Mahasiswa Berprestasi</div>

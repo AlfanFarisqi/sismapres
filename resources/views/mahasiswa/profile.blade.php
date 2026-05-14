@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('assets/img/LOGO UNP Kediri.png') }}">
     <style>
         body {
             margin: 0;
@@ -13,22 +15,24 @@
         }
 
         .container {
-            width: 90%;
+            width: 85%;
             min-height: 90vh;
-            margin: 20px auto;
+            margin: 30px auto;
             background: #FFFFFF;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         /* HEADER */
         .header {
             display: flex;
             align-items: center;
-            padding: 15px 25px;
-            background: #355872;
-            color: white;
-            font-size: 20px;
+            padding: 20px 30px;
+            border-bottom: 2px solid #f0f0f0;
+            background: #ffffff;
+            color: #355872;
+            font-size: 22px;
             font-weight: bold;
         }
 
@@ -132,10 +136,12 @@
     <!-- HEADER -->
     <div class="header" style="justify-content: space-between;">
         <div style="display: flex; align-items: center;">
-            <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 30px; margin-right: 10px;">
+            <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 40px; margin-right: 15px;">
             <span>SISMAPRES</span>
         </div>
-        <a href="{{ route('mahasiswa.informasi') }}" style="color: white; text-decoration: none; font-size: 16px; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 8px;">Kembali</a>
+        <a href="{{ route('mahasiswa.informasi') }}" style="color: #355872; text-decoration: none; font-size: 14px; border: 1px solid #355872; padding: 8px 20px; border-radius: 10px; font-weight: 600; transition: 0.3s;">
+            <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+        </a>
     </div>
 
     <!-- CONTENT -->

@@ -155,7 +155,7 @@
                                 <div class="kriteria-item mb-4 p-3 border rounded-4 shadow-sm bg-white">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <span class="fw-bold text-dark">C{{ $loop->iteration }} - {{ $k->nama }}</span>
-                                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2 small">W: {{ $k->bobot }}</span>
+                                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2 small">bobot: {{ $k->bobot }}</span>
                                     </div>
                                     
                                     <div class="keterangan-mahasiswa mb-3 p-2 rounded-3 bg-light border-start border-4 border-info d-none">
@@ -177,7 +177,15 @@
                                     @endif
                                 </div>
                                 @endforeach
+
+                                <!-- Tombol Submit Tambahan (Non-fungsional) -->
+                                <div class="d-flex justify-content-end mt-3 mb-2">
+                                    <button type="button" class="btn btn-primary rounded-3 px-4 py-2 shadow-sm fw-bold" style="background-color: #355872; border-color: #355872; opacity: 0.8; cursor: default;">
+                                        <i class="fa-solid fa-paper-plane me-2"></i> Submit Penilaian
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
