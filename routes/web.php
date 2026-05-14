@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/hasil-seleksi/calculate', [HasilController::class, 'calculate'])->name('hasil-seleksi.calculate');
         Route::get('/hasil-seleksi/data', [HasilController::class, 'index'])->name('hasil-seleksi.data');
         Route::get('/manajemen-user', [AdminController::class, 'manajemenUser'])->name('manajemen-user.index');
+        Route::put('/manajemen-user/{user}', [AdminController::class, 'updateUser'])->name('manajemen-user.update');
+        Route::delete('/manajemen-user/{user}', [AdminController::class, 'destroyUser'])->name('manajemen-user.destroy');
     });
 
     Route::prefix('mahasiswa')->name('mahasiswa.')->middleware(['track_page'])->group(function () {

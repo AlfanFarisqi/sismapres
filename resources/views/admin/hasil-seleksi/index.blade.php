@@ -10,7 +10,7 @@
         <h5 class="mb-1 fw-bold" style="color: #1a2c3a !important;">Tabel Hasil Seleksi Mahasiswa Berprestasi</h5>
         <span class="app-sub" style="color: #355872;">Program Studi Teknik Informatika Tahun 2026</span>
     </div>
-    <button class="btn btn-warning shadow-sm" style="color: #fff; font-weight: 600;">
+    <button class="btn btn-warning shadow-sm" style="color: #fff; font-weight: 600;" onclick="window.print()">
         <i class="fa-solid fa-print"></i> Cetak Laporan
     </button>
 </div>
@@ -20,11 +20,13 @@
     <div class="filter-section d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold m-0" style="color: #1a2c3a;"><i class="fa-solid fa-trophy text-warning me-2"></i>Mahasiswa Lolos Perangkingan</h5>
         <div class="d-flex align-items-center gap-3">
-            <label for="search-nama">Nama Mahasiswa</label>
-            <div class="search-box">
-                <input type="text" id="search-nama" class="form-control" placeholder="Cari mahasiswa...">
+            <form action="{{ route('admin.hasil-seleksi.index') }}" method="GET" class="d-flex gap-2">
+                <input type="text" name="search" class="form-control" placeholder="Nama atau NPM..." value="{{ $search }}" style="min-width: 250px;">
                 <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
-            </div>
+                @if($search)
+                    <a href="{{ route('admin.hasil-seleksi.index') }}" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i></a>
+                @endif
+            </form>
         </div>
     </div>
 
@@ -113,3 +115,78 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    @media print {
+        /* Sembunyikan elemen navigasi */
+        .sidebar, .topbar, .welcome-box button, .filter-section .search-box, .filter-section label {
+            display: none !important;
+        }
+        
+        /* Reset layout utama */
+        .wrapper {
+            display: block !important;
+        }
+        .main {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        /* Optimasi Card & Tabel */
+        .card-container {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            margin-bottom: 20px !important;
+        }
+        
+        .table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+        }
+        
+        .table th, .table td {
+            border: 1px solid #000 !important;
+            padding: 8px !important;
+            color: #000 !important;
+        }
+        
+        /* Sembunyikan Badge warna saat cetak (agar lebih irit tinta) atau paksa warna */
+        .badge {
+            border: 1px solid #ccc !important;
+            color: #000 !important;
+            background: transparent !important;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+
+        /* Tambahkan header laporan otomatis */
+        body::before {
+            content: "LAPORAN HASIL SELEKSI MAHASISWA BERPRESTASI \A UNIVERSITAS NUSANTARA PGRI KEDIRI \A Tahun Akademik 2026/2027";
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+            white-space: pre;
+        }
+
+        /* Footer tanda tangan */
+        .card-container:last-child::after {
+            content: "Kediri, {{ date('d F Y') }} \A \A \A \A \A (...................................) \A Panitia Seleksi";
+            display: block;
+            margin-top: 50px;
+            text-align: right;
+            white-space: pre;
+            font-weight: bold;
+        }
+    }
+</style>
+@endpush

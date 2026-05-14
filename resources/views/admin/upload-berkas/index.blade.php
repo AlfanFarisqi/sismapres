@@ -20,14 +20,29 @@
 @endif
 
 <div class="card-container">
-    <div class="filter-section d-flex justify-content-between align-items-center mb-3">
-        <div class="d-flex align-items-center gap-3">
-            <label for="search">Nama Mahasiswa</label>
-            <div class="search-box">
-                <input type="text" id="search" class="form-control" placeholder="Cari mahasiswa...">
-                <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+    <div class="filter-section mb-3">
+        <form action="{{ route('admin.upload-berkas.index') }}" method="GET">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label for="search" class="form-label fw-bold small">Cari Mahasiswa</label>
+                    <div class="search-box">
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Nama atau NPM..." value="{{ $search }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="status" class="form-label fw-bold small">Status Verifikasi</label>
+                    <select name="status" id="status" class="form-control" onchange="this.form.submit()">
+                        <option value="">Semua Status</option>
+                        <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Belum Diperiksa (Belum Aktif)</option>
+                        <option value="lolos" {{ $status == 'lolos' ? 'selected' : '' }}>Lolos Administrasi</option>
+                        <option value="tidak_lolos" {{ $status == 'tidak_lolos' ? 'selected' : '' }}>Tidak Lolos Administrasi</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-primary w-100"><i class="fa-solid fa-magnifying-glass me-2"></i> Filter Data</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <div class="table-responsive">
