@@ -23,6 +23,7 @@
             vertical-align: middle;
         }
     </style>
+    @stack('styles')
 </head>
 
 <body>

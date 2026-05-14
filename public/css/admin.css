@@ -145,6 +145,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    background-color: #fcfcfc;
 }
 
 .stat-card::before {

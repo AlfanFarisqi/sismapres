@@ -178,9 +178,9 @@
                                 </div>
                                 @endforeach
 
-                                <!-- Tombol Submit Tambahan (Non-fungsional) -->
+                                <!-- Tombol Submit Penilaian (Aktif) -->
                                 <div class="d-flex justify-content-end mt-3 mb-2">
-                                    <button type="button" class="btn btn-primary rounded-3 px-4 py-2 shadow-sm fw-bold" style="background-color: #355872; border-color: #355872; opacity: 0.8; cursor: default;">
+                                    <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 shadow-sm fw-bold btn-submit-inside" style="background-color: #355872; border-color: #355872;">
                                         <i class="fa-solid fa-paper-plane me-2"></i> Submit Penilaian
                                     </button>
                                 </div>
@@ -274,6 +274,7 @@
     .kriteria-item:hover { transform: scale(1.01); }
     .list-group-item-action { transition: all 0.2s; border-radius: 8px !important; margin-bottom: 5px; }
     .list-group-item-action:hover { transform: translateX(5px); background-color: #e9ecef; }
+    .btn-submit-inside:hover { background-color: #264053 !important; transform: translateY(-2px); transition: all 0.2s; }
 </style>
 
 <script>
@@ -429,8 +430,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Loading state on form submit
     form.addEventListener('submit', function() {
-        btnSubmit.disabled = true;
-        btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Memproses...`;
+        const submitButtons = form.querySelectorAll('button[type="submit"]');
+        submitButtons.forEach(btn => {
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Memproses...`;
+        });
     });
 
     // Reset modal on close
@@ -439,8 +443,16 @@ document.addEventListener('DOMContentLoaded', function() {
         form.reset();
         document.querySelectorAll('.score-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.skor-input').forEach(input => input.value = '');
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = `<i class="fa-solid fa-save me-2"></i> Simpan Penilaian`;
+        
+        const submitButtons = form.querySelectorAll('button[type="submit"]');
+        submitButtons.forEach(btn => {
+            btn.disabled = false;
+            if(btn.id === 'btnSubmitPenilaian') {
+                btn.innerHTML = `<i class="fa-solid fa-save me-2"></i> Simpan Penilaian`;
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-paper-plane me-2"></i> Submit Penilaian`;
+            }
+        });
     });
 });
 </script>

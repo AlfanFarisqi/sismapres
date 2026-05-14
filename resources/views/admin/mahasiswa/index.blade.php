@@ -15,12 +15,24 @@
 
 <div class="card-container">
     <div class="filter-section d-flex justify-content-between align-items-center">
-        <div class="search-box-wrapper">
-            <label for="search-nama">Nama Mahasiswa</label>
-            <form action="GET" method="">   
-                <div class="search-box">
-                    <input type="text" id="search-nama" name="search" class="form-control" placeholder="Cari mahasiswa...">
-                    <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+        <div class="search-box-wrapper flex-grow-1 me-3">
+            <form action="{{ route('admin.mahasiswa.index') }}" method="GET">   
+                <div class="d-flex gap-2">
+                    <div class="flex-grow-1">
+                        <label for="search-nama">Cari Mahasiswa</label>
+                        <input type="text" id="search-nama" name="search" class="form-control w-100" placeholder="Nama atau NPM..." value="{{ $search }}">
+                    </div>
+                    <div>
+                        <label for="filter-status">Status Berkas</label>
+                        <select name="status" id="filter-status" class="form-control" onchange="this.form.submit()">
+                            <option value="">Semua Status</option>
+                            <option value="lolos" {{ $status == 'lolos' ? 'selected' : '' }}>Lolos (Aktif)</option>
+                            <option value="tidak_lolos" {{ $status == 'tidak_lolos' ? 'selected' : '' }}>Tidak Lolos (Belum Aktif)</option>
+                        </select>
+                    </div>
+                    <div class="align-self-end">
+                        <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -35,7 +47,7 @@
                     <th>NPM</th>
                     <th>Tingkat</th>
                     <th>Email</th>
-                    <th>Telephone</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -44,9 +56,17 @@
                 <tr>
                     <td>{{ $m->nama }}</td>
                     <td>{{ $m->npm }}</td>
-                    <td>{{ $m->tingkat }}</td>
+                    <td>Semester {{ $m->tingkat }}</td>
                     <td>{{ $m->email }}</td>
-                    <td>{{ $m->no_hp }}</td>
+                    <td>
+                        @if($m->status_berkas == 'lolos')
+                            <span class="badge bg-success">Lolos</span>
+                        @elseif($m->status_berkas == 'tidak_lolos')
+                            <span class="badge bg-danger">Tidak Lolos</span>
+                        @else
+                            <span class="badge bg-secondary">Pending</span>
+                        @endif
+                    </td>
                     <td class="action-buttons">
                         <a href="{{ route('admin.mahasiswa.edit', $m->id) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fa-solid fa-pen"></i></a>
                         <form action="{{ route('admin.mahasiswa.destroy', $m->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">

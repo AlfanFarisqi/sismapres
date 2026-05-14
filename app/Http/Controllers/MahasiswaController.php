@@ -10,11 +10,18 @@ class MahasiswaController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
+        $status = $request->status;
+
         $mahasiswas = Mahasiswa::when($search, function ($query) use ($search) {
             $query->where('nama', 'like', '%' . $search . '%')
                 ->orWhere('npm', 'like', '%' . $search . '%');
-        })->get();
-        return view('admin.mahasiswa.index', compact('mahasiswas', 'search'));
+        })
+        ->when($status, function ($query) use ($status) {
+            $query->where('status_berkas', $status);
+        })
+        ->get();
+
+        return view('admin.mahasiswa.index', compact('mahasiswas', 'search', 'status'));
     }
 
     public function edit(Mahasiswa $mahasiswa)

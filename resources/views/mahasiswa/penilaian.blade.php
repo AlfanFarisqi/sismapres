@@ -146,7 +146,7 @@
     <h3><i class="fa-solid fa-graduation-cap"></i> C1 - IPK</h3>
     <div class="form-group">
         <label>Nilai IPK Terakhir</label>
-        <input type="number" step="0.01" name="ipk" placeholder="Contoh: 3.75" required>
+        <input type="text" step="0.01" name="ipk" placeholder="Contoh: 3.75" required>
         <div class="note">* Masukkan IPK terakhir Anda dengan format angka (contoh: 3.75)</div>
     </div>
 </div>
@@ -174,7 +174,7 @@
         </div>
         <div class="form-group">
             <label>Tahun Prestasi</label>
-            <input type="number" name="tahun_prestasi" required>
+            <input type="text" name="tahun_prestasi" required>
         </div>
         <div class="form-group full-width">
             <label>Upload Sertifikat (PDF)</label>
