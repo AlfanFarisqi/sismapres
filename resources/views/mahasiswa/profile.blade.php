@@ -145,26 +145,23 @@
     </div>
 
     <!-- CONTENT -->
-    <div class="content">
+    <form action="{{ route('mahasiswa.profile.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="content">
 
-        <!-- KIRI -->
-        <div class="left">
-            <div class="profile-card">
-                <form action="{{ route('mahasiswa.upload-foto') }}" method="POST" enctype="multipart/form-data" id="fotoForm">
-                    @csrf
+            <!-- KIRI -->
+            <div class="left">
+                <div class="profile-card">
                     <div class="profile-img" id="imgPreview" style="{{ isset($mahasiswa) && $mahasiswa->foto ? 'background-image: url(' . asset('storage/' . $mahasiswa->foto) . ');' : '' }} background-size: cover; background-position: center;"></div>
                     <input type="file" name="foto" id="fotoInput" style="display:none" accept="image/*">
-                    <button type="button" class="upload-btn" onclick="document.getElementById('fotoInput').click()">Upload Foto</button>
-                </form>
+                    <button type="button" class="upload-btn" onclick="document.getElementById('fotoInput').click()">Pilih Foto</button>
+                </div>
             </div>
-        </div>
 
-        <div class="separator"></div>
+            <div class="separator"></div>
 
-        <!-- KANAN -->
-        <div class="right">
-            <form action="{{ route('mahasiswa.profile.update') }}" method="POST">
-                @csrf
+            <!-- KANAN -->
+            <div class="right">
                 <div class="form-group">
                     <label>Nama Lengkap</label>
                     <input type="text" name="nama" value="{{ old('nama', $mahasiswa->nama ?? '') }}" required>
@@ -202,10 +199,10 @@
                 </div>
 
                 <button type="submit" class="btn-save">Simpan & Lanjut</button>
-            </form>
-        </div>
+            </div>
 
-    </div>
+        </div>
+    </form>
 
 </div>
 
@@ -217,9 +214,6 @@
                 document.getElementById('imgPreview').style.backgroundImage = 'url(' + e.target.result + ')';
             }
             reader.readAsDataURL(e.target.files[0]);
-            
-            // Auto submit form when photo is selected
-            document.getElementById('fotoForm').submit();
         }
     });
 </script>
