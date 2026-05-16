@@ -129,6 +129,6 @@ class PenilaianController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Data penilaian dan berkas berhasil disimpan.');
+        return redirect()->route('mahasiswa.pengumuman')->with('success', 'Data penilaian dan berkas berhasil disimpan.');
     }
 }
