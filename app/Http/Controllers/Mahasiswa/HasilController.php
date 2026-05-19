@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HasilController extends Controller
 {
-    /**
-     * Tanggal pengumuman hasil seleksi (Sama dengan di PengumumanController).
-     */
-    const TANGGAL_PENGUMUMAN = '2026-06-30';
-
     private function getMahasiswa()
     {
         return Mahasiswa::where('user_id', Auth::id())->first();
@@ -23,7 +18,7 @@ class HasilController extends Controller
     public function index()
     {
         $sekarang = date('Y-m-d');
-        if ($sekarang < self::TANGGAL_PENGUMUMAN) {
+        if ($sekarang < PengumumanController::TANGGAL_PENGUMUMAN) {
             return redirect()->route('mahasiswa.pengumuman')->with('warning', 'Hasil seleksi belum diumumkan.');
         }
 
