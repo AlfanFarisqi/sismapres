@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class DetailPenilaian extends Model
+{
+    protected $fillable = [
+        'mahasiswa_id',
+        'kriteria_id',
+        'nilai',
+        'keterangan',
+    ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class);
+    }
+
+    public function kriteria()
+    {
+        return $this->belongsTo(Kriteria::class);
+    }
+}

@@ -16,6 +16,7 @@ class Mahasiswa extends Model
         'alamat',
         'status_berkas',
         'foto',
+        'is_dinilai',
     ];
 
     public function user()
@@ -36,5 +37,10 @@ class Mahasiswa extends Model
     public function berkas()
     {
         return $this->hasMany(Berkas::class);
+    }
+
+    public function detailPenilaians()
+    {
+        return $this->hasMany(DetailPenilaian::class);
     }
 }

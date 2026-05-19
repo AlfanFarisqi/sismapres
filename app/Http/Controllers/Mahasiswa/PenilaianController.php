@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
 use App\Models\Penilaian;
+use App\Models\DetailPenilaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,13 @@ class PenilaianController extends Controller
     public function index()
     {
         $mahasiswa = $this->getMahasiswa();
-        $penilaians = $mahasiswa ? Penilaian::where('mahasiswa_id', $mahasiswa->id)->pluck('nilai', 'kriteria_id') : collect();
+        if ($mahasiswa && $mahasiswa->is_dinilai) {
+            $penilaians = Penilaian::where('mahasiswa_id', $mahasiswa->id)->pluck('nilai', 'kriteria_id');
+        } elseif ($mahasiswa) {
+            $penilaians = DetailPenilaian::where('mahasiswa_id', $mahasiswa->id)->pluck('nilai', 'kriteria_id');
+        } else {
+            $penilaians = collect();
+        }
         $kriterias = \App\Models\Kriteria::all();
         
         return view('mahasiswa.penilaian', compact('mahasiswa', 'penilaians', 'kriterias'));
@@ -117,7 +124,7 @@ class PenilaianController extends Controller
         ];
 
         foreach ($nilaiArray as $kriteriaId => $data) {
-            Penilaian::updateOrCreate(
+            DetailPenilaian::updateOrCreate(
                 [
                     'mahasiswa_id' => $mahasiswa->id,
                     'kriteria_id' => $kriteriaId,
