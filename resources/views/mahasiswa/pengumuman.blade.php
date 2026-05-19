@@ -64,7 +64,6 @@ body {
     color: #333;
 }
 
-/* OPTIONAL BUTTON */
 .btn {
     margin-top: 20px;
     padding: 10px 20px;
@@ -84,14 +83,11 @@ body {
 <body>
 
 <div class="container">
-
-    <!-- HEADER -->
     <div class="header" style="display: flex; align-items: center;">
         <img src="{{ asset('assets/img/LOGO UNP Kediri.png') }}" alt="Logo UNP" style="height: 30px; margin-right: 10px;">
         SISMAPRES
     </div>
 
-    <!-- CONTENT -->
     <div class="content">
         <div class="announcement">
             <h2>Pengumuman</h2>
@@ -110,7 +106,6 @@ body {
             @endif
         </div>
     </div>
-
 </div>
 
 </body>
