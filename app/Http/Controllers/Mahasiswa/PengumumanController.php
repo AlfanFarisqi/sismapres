@@ -10,13 +10,18 @@ class PengumumanController extends Controller
     /**
      * Tanggal pengumuman hasil seleksi.
      */
-    const TANGGAL_PENGUMUMAN = '2026-06-30';
+    const TANGGAL_PENGUMUMAN = '2026-05-01';
 
     public function index()
     {
         $sekarang = date('Y-m-d');
         $sudahDiumumkan = $sekarang >= self::TANGGAL_PENGUMUMAN;
         $tanggalPengumuman = self::TANGGAL_PENGUMUMAN;
+
+        if ($sudahDiumumkan) {
+            session()->reflash();
+            return redirect()->route('mahasiswa.hasil.index');
+        }
 
         return view('mahasiswa.pengumuman', compact('sudahDiumumkan', 'tanggalPengumuman'));
     }

@@ -114,8 +114,8 @@
 
     <!-- SEARCH -->
     <div class="search-box">
-        <input type="text" placeholder="Cari Nama Mahasiswa...">
-        <button>Cari</button>
+        <input type="text" id="searchInput" placeholder="Cari Nama Mahasiswa atau NPM...">
+        <button id="searchBtn">Cari</button>
     </div>
 
     <!-- TABLE -->
@@ -129,7 +129,7 @@
                 <th>Nilai</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="hasilTableBody">
             @forelse($hasilSeleksi as $index => $item)
             <tr style="{{ (Auth::id() == $item->mahasiswa->user_id) ? 'background-color: #e3f2fd; font-weight: bold;' : '' }}">
                 <td>{{ $index + 1 }}</td>
@@ -147,6 +147,49 @@
     </table>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const tableBody = document.getElementById('hasilTableBody');
+    const rows = tableBody.getElementsByTagName('tr');
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase().trim();
+
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            
+            // Cek jika ini baris "Belum ada data"
+            const firstCell = row.getElementsByTagName('td')[0];
+            if (firstCell && firstCell.getAttribute('colspan') === '5') {
+                continue;
+            }
+
+            const namaCell = row.getElementsByTagName('td')[1];
+            const npmCell = row.getElementsByTagName('td')[2];
+
+            if (namaCell && npmCell) {
+                const namaText = namaCell.textContent || namaCell.innerText;
+                const npmText = npmCell.textContent || npmCell.innerText;
+
+                if (namaText.toLowerCase().includes(query) || npmText.toLowerCase().includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+    }
+
+    // Jalankan filter saat tombol Cari diklik
+    searchBtn.addEventListener('click', filterTable);
+
+    // Jalankan filter otomatis secara real-time saat mengetik (opsional namun memudahkan user)
+    searchInput.addEventListener('keyup', filterTable);
+});
+</script>
 
 </body>
 </html>
