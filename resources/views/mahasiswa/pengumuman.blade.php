@@ -91,7 +91,6 @@ body {
         SISMAPRES
     </div>
 
-    <!-- CONTENT -->
     <div class="content">
         <div class="announcement">
             <h2>Pengumuman</h2>
@@ -110,7 +109,6 @@ body {
             @endif
         </div>
     </div>
-
 </div>
 
 </body>
