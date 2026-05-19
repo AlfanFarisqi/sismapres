@@ -19,8 +19,9 @@ class PenilaianController extends Controller
         
         // Ambil data penilaian yang dikelompokkan berdasarkan mahasiswa
         $penilaians = Penilaian::with(['mahasiswa', 'kriteria'])->get()->groupBy('mahasiswa_id');
+        $detailPenilaians = \App\Models\DetailPenilaian::with(['mahasiswa', 'kriteria'])->get()->groupBy('mahasiswa_id');
 
-        return view('admin.data-penilaian.input', compact('mahasiswas', 'kriterias', 'penilaians'));
+        return view('admin.data-penilaian.input', compact('mahasiswas', 'kriterias', 'penilaians', 'detailPenilaians'));
     }
 
     public function store(Request $request)
@@ -49,6 +50,9 @@ class PenilaianController extends Controller
                     ]
                 );
             }
+            
+            // Tandai bahwa admin sudah memvalidasi/mengisi nilai
+            $mahasiswa->update(['is_dinilai' => true]);
 
             // Jalankan perhitungan TOPSIS secara otomatis
             $this->calculateTopsis();

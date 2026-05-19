@@ -62,10 +62,16 @@
                         </td>
                         <td class="text-center">
                             @php
-                                $nilaiCount = $penilaians->get($m->id)?->count() ?? 0;
-                                $isComplete = $nilaiCount >= $kriterias->count() && $nilaiCount > 0;
+                                $dPenilaians = $detailPenilaians->get($m->id);
+                                if ($dPenilaians && $dPenilaians->count() > 0) {
+                                    $ketData = $dPenilaians->pluck('keterangan', 'kriteria_id');
+                                    $nilaiData = $m->is_dinilai ? $penilaians->get($m->id)?->pluck('nilai', 'kriteria_id') : $dPenilaians->pluck('nilai', 'kriteria_id');
+                                } else {
+                                    $ketData = $penilaians->get($m->id)?->pluck('keterangan', 'kriteria_id') ?? collect();
+                                    $nilaiData = $penilaians->get($m->id)?->pluck('nilai', 'kriteria_id') ?? collect();
+                                }
                             @endphp
-                            @if($isComplete)
+                            @if($m->is_dinilai)
                                 <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold border border-success-subtle">
                                     <i class="fa-solid fa-check-circle me-1"></i> Penilaian Sukses
                                 </span>
@@ -80,7 +86,7 @@
                                 <button class="btn btn-sm btn-info text-white rounded-3 px-3 btn-detail shadow-sm"
                                         data-id="{{ $m->id }}" 
                                         data-nama="{{ $m->nama }}"
-                                        data-keterangan="{{ json_encode($penilaians->get($m->id)?->pluck('keterangan', 'kriteria_id')) }}">
+                                        data-keterangan="{{ json_encode($ketData) }}">
                                     <i class="fa-solid fa-eye me-1"></i> Detail
                                 </button>
                                 <button class="btn btn-sm btn-primary rounded-3 px-3 btn-nilai shadow-sm" 
@@ -88,8 +94,8 @@
                                         data-id="{{ $m->id }}" 
                                         data-nama="{{ $m->nama }}"
                                         data-berkas="{{ json_encode($m->berkas) }}"
-                                        data-nilai="{{ json_encode($penilaians->get($m->id)?->pluck('nilai', 'kriteria_id')) }}"
-                                        data-keterangan="{{ json_encode($penilaians->get($m->id)?->pluck('keterangan', 'kriteria_id')) }}">
+                                        data-nilai="{{ json_encode($nilaiData) }}"
+                                        data-keterangan="{{ json_encode($ketData) }}">
                                     <i class="fa-solid fa-pen-to-square me-1"></i> Nilai
                                 </button>
                             </div>

@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (berkas.length > 0) {
                 berkas.forEach(b => {
                     const item = document.createElement('a');
-                    item.href = `/storage/${b.file_path}`;
+                    item.href = `{{ asset('storage') }}/${b.file_path}`;
                     item.target = '_blank';
                     item.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3 rounded-3 border-0 shadow-sm bg-white';
                     item.style.transition = "transform 0.2s, box-shadow 0.2s";
