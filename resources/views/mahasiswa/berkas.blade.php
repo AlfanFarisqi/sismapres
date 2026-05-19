@@ -122,55 +122,69 @@
         </div>
     @endif
 
-    <div class="file-grid">
-        <!-- KTM -->
-        <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
-            @csrf
+    <form id="uploadForm" method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="file-grid">
+            <!-- KTM -->
             <div class="file-card" style="{{ isset($berkas['KTM']) ? 'border: 2px solid #28a745;' : '' }}">
                 <div>
                     <label>KTM (Kartu Tanda Mahasiswa)</label>
                     <small>Status: {!! isset($berkas['KTM']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
-                    <input type="hidden" name="nama_berkas" value="KTM">
-                    <input type="file" name="file" accept="application/pdf,image/*" required>
+                    <input type="file" name="berkas[KTM]" accept="application/pdf,image/*" {{ isset($berkas['KTM']) ? '' : 'required' }}>
                 </div>
-                <button type="submit" class="btn" style="margin-top: 15px;">{{ isset($berkas['KTM']) ? 'Ganti KTM' : 'Upload KTM' }}</button>
             </div>
-        </form>
 
-        <!-- KTP -->
-        <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
-            @csrf
+            <!-- KTP -->
             <div class="file-card" style="{{ isset($berkas['KTP']) ? 'border: 2px solid #28a745;' : '' }}">
                 <div>
                     <label>KTP (Kartu Tanda Penduduk)</label>
                     <small>Status: {!! isset($berkas['KTP']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
-                    <input type="hidden" name="nama_berkas" value="KTP">
-                    <input type="file" name="file" accept="application/pdf,image/*" required>
+                    <input type="file" name="berkas[KTP]" accept="application/pdf,image/*" {{ isset($berkas['KTP']) ? '' : 'required' }}>
                 </div>
-                <button type="submit" class="btn" style="margin-top: 15px;">{{ isset($berkas['KTP']) ? 'Ganti KTP' : 'Upload KTP' }}</button>
             </div>
-        </form>
 
-        <!-- KHS -->
-        <form method="POST" action="{{ route('mahasiswa.berkas.store') }}" enctype="multipart/form-data">
-            @csrf
+            <!-- KHS -->
             <div class="file-card" style="{{ isset($berkas['KHS']) ? 'border: 2px solid #28a745;' : '' }}">
                 <div>
                     <label>KHS (Kartu Hasil Studi)</label>
                     <small>Status: {!! isset($berkas['KHS']) ? '<b style="color:green">✅ Terunggah</b>' : '<b style="color:red">❌ Belum Ada</b>' !!}</small>
-                    <input type="hidden" name="nama_berkas" value="KHS">
-                    <input type="file" name="file" accept="application/pdf,image/*" required>
+                    <input type="file" name="berkas[KHS]" accept="application/pdf,image/*" {{ isset($berkas['KHS']) ? '' : 'required' }}>
                 </div>
-                <button type="submit" class="btn" style="margin-top: 15px;">{{ isset($berkas['KHS']) ? 'Ganti KHS' : 'Upload KHS' }}</button>
             </div>
-        </form>
-    </div>
+        </div>
 
-    <div style="text-align: right; margin-top: 20px;">
-        <a href="{{ route('mahasiswa.penilaian.index') }}" style="color: #355872; text-decoration: none; font-weight: bold; background: #9CD5FF; padding: 10px 20px; border-radius: 10px;">Selanjutnya</a>
-    </div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button type="button" onclick="confirmSave()" style="border:none; color: #355872; text-decoration: none; font-weight: bold; background: #9CD5FF; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 16px;">Selanjutnya</button>
+        </div>
+    </form>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmSave() {
+    const form = document.getElementById('uploadForm');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    Swal.fire({
+        title: 'Apakah Anda Yakin Ingin Menyimpan?',
+        text: "Pastikan berkas yang diunggah sudah benar.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#355872',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Simpan!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    })
+}
+</script>
 
 </body>
 </html>
