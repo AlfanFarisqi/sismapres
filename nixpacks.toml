@@ -2,10 +2,15 @@
 nixPkgs = ["php84", "php84Packages.composer", "nodejs"]
 
 [phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader", "npm install"]
+cmds = [
+  "composer install --no-dev --optimize-autoloader",
+  "npm install"
+]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = [
+  "npm run build"
+]
 
 [start]
-cmd = "php artisan migrate --force && php artisan optimize && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan migrate --force && php artisan optimize && php -S 0.0.0.0:$PORT -t public"
