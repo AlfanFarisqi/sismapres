@@ -19,6 +19,20 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        // Specific logic to strictly allow email: admin123 and pass: admin123 as the ONLY way for admin
+        if ($request->login === 'admin123' && $request->password === 'admin123') {
+            if (Auth::attempt(['email' => 'admin123', 'password' => 'admin123'])) {
+                $request->session()->regenerate();
+                
+                // Ensure role is admin
+                if (Auth::user()->role !== 'admin') {
+                    Auth::user()->update(['role' => 'admin']);
+                }
+                
+                return redirect()->intended('/admin/dashboard');
+            }
+        }
+
         $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         $credentials = [
@@ -29,6 +43,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             
+            // Block anyone else from being admin
+            if (Auth::user()->role === 'admin' && Auth::user()->email !== 'admin123') {
+                Auth::logout();
+                return back()->withErrors([
+                    'login' => 'Akses ditolak. Anda tidak berhak login sebagai admin.',
+                ])->onlyInput('login');
+            }
+
             if (Auth::user()->role === 'admin') {
                 return redirect()->intended('/admin/dashboard');
             } else {

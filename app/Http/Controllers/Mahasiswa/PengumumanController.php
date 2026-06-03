@@ -10,7 +10,7 @@ class PengumumanController extends Controller
     /**
      * Tanggal pengumuman hasil seleksi.
      */
-    const TANGGAL_PENGUMUMAN = '2026-07~-01';
+    const TANGGAL_PENGUMUMAN = '2026-06-03';
 
     public function index()
     {
