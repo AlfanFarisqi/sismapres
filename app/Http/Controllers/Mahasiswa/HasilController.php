@@ -25,8 +25,9 @@ class HasilController extends Controller
         $mahasiswa = $this->getMahasiswa();
         $hasil = $mahasiswa ? HasilSeleksi::where('mahasiswa_id', $mahasiswa->id)->first() : null;
         $hasilSeleksi = HasilSeleksi::with('mahasiswa')->orderBy('ranking')->get();
+        $tidakLolos = Mahasiswa::where('status_berkas', 'tidak_lolos')->get();
         
-        return view('mahasiswa.hasil', compact('mahasiswa', 'hasil', 'hasilSeleksi'));
+        return view('mahasiswa.hasil', compact('mahasiswa', 'hasil', 'hasilSeleksi', 'tidakLolos'));
     }
 
     public function data()
