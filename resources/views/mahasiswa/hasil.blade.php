@@ -146,6 +146,39 @@
         </tbody>
     </table>
 
+    <!-- TITLE TIDAK LOLOS -->
+    <div class="title" style="margin-top: 40px;">
+        <h3>Tabel Mahasiswa Tidak Lolos Berkas</h3>
+    </div>
+
+    <!-- TABLE TIDAK LOLOS -->
+    <table style="margin-bottom: 20px;">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NPM</th>
+                <th>Tingkat</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody id="tidakLolosTableBody">
+            @forelse($tidakLolos as $index => $mhs)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $mhs->nama }}</td>
+                <td>{{ $mhs->npm }}</td>
+                <td>Tingkat {{ $mhs->tingkat }}</td>
+                <td>Tidak Lolos Berkas</td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="5">Belum ada data mahasiswa tidak lolos.</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+
 </div>
 
 <script>
@@ -154,33 +187,40 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchBtn = document.getElementById('searchBtn');
     const tableBody = document.getElementById('hasilTableBody');
     const rows = tableBody.getElementsByTagName('tr');
+    const tidakLolosTableBody = document.getElementById('tidakLolosTableBody');
+    const tidakLolosRows = tidakLolosTableBody ? tidakLolosTableBody.getElementsByTagName('tr') : [];
 
     function filterTable() {
         const query = searchInput.value.toLowerCase().trim();
 
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            
-            // Cek jika ini baris "Belum ada data"
-            const firstCell = row.getElementsByTagName('td')[0];
-            if (firstCell && firstCell.getAttribute('colspan') === '5') {
-                continue;
-            }
+        const filterRows = (rowList) => {
+            for (let i = 0; i < rowList.length; i++) {
+                const row = rowList[i];
+                
+                // Cek jika ini baris "Belum ada data"
+                const firstCell = row.getElementsByTagName('td')[0];
+                if (firstCell && firstCell.getAttribute('colspan') === '5') {
+                    continue;
+                }
 
-            const namaCell = row.getElementsByTagName('td')[1];
-            const npmCell = row.getElementsByTagName('td')[2];
+                const namaCell = row.getElementsByTagName('td')[1];
+                const npmCell = row.getElementsByTagName('td')[2];
 
-            if (namaCell && npmCell) {
-                const namaText = namaCell.textContent || namaCell.innerText;
-                const npmText = npmCell.textContent || npmCell.innerText;
+                if (namaCell && npmCell) {
+                    const namaText = namaCell.textContent || namaCell.innerText;
+                    const npmText = npmCell.textContent || npmCell.innerText;
 
-                if (namaText.toLowerCase().includes(query) || npmText.toLowerCase().includes(query)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
+                    if (namaText.toLowerCase().includes(query) || npmText.toLowerCase().includes(query)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
                 }
             }
-        }
+        };
+
+        filterRows(rows);
+        filterRows(tidakLolosRows);
     }
 
     // Jalankan filter saat tombol Cari diklik
